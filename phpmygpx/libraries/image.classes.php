@@ -68,6 +68,13 @@ class ImageFile {
 			return FALSE;
 		return $im_thumb;
 	}
+
+	function createImage() {
+		$im = @imagecreatefromjpeg($this->imageURI);
+		 if(!$im)
+                        return FALSE;
+                return $im;
+	}
 	
 	function rotate($image, $angle) {
 		if($angle == 'auto') {

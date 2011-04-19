@@ -51,7 +51,7 @@ if(!$type) {
 			}else {
 				// creating thumb (resampling original image)
 				if($im->load($cfg['photo_images_dir']. $row['file'])) {
-					$thumb = $im->rotate($im->createThumbnail($width), 'auto');
+					$thumb = $im->rotate($im->createImage(), 'auto');
 				}
 			}
 		}
