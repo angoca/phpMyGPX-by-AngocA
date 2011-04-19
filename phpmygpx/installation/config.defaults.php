@@ -60,6 +60,8 @@ $cfg['validate_gpx_xml']	= TRUE;
 $cfg['chmod_on_import']		= FALSE;
 //! max time diff (trackpoints/camera) for photo import (seconds)
 $cfg['max_timediff_import']	= 30;
+//! Copy photos to destination folder.
+$cfg['copy_photos']		= TRUE;
 
 //! max file size (bytes) for uploading (4 MB)
 $cfg['max_file_size']		= 4194304;

@@ -102,14 +102,18 @@ if($type) {
 						$status = $doc->importPhoto($gpx_id, $title_opt, $title, $desc_opt, $description, $timezone, $offset, NULL);
 						// move file to photo folder if import was successful
 						if(!$status['error']) {
-							if(copy($file, $cfg['photo_images_dir'].basename($file))) {
-								if($cfg['chmod_on_import']) {
-									@chown($file, 0644);
-									@chown($cfg['photo_images_dir'].basename($file), 0644);
-								}
+							if (!$cfg['copy_photos']) {
 								unlink($file);
-							}else
-								$status['msg'] = _IMPORT_COPY_FAILED;
+							} else {
+								if(copy($file, $cfg['photo_images_dir'].basename($file))) {
+									if($cfg['chmod_on_import']) {
+										@chown($file, 0644);
+										@chown($cfg['photo_images_dir'].basename($file), 0644);
+									}
+									unlink($file);
+								}else
+									$status['msg'] = _IMPORT_COPY_FAILED;
+							}
 						}
 						
 					}else
