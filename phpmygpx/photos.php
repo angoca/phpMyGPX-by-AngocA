@@ -94,7 +94,7 @@ switch ($task) {
 		break;
 
 	case 'full':
-		viewPhoto($id);
+		fullPhoto($id);
 		break;
 
 	case 'upload':
