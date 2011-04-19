@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: import.php 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: import.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -57,7 +57,7 @@ if($type) {
 			        // init and load gpx document
 					$doc = new GpxDocument("1.0", "UTF-8");
 					if($doc) {
-						$doc->load($file);
+						@$doc->load($file);
 						// validate XML
 						#$cfg['validate_gpx_xml'] = FALSE;
 						if(!$cfg['validate_gpx_xml'] || $doc->validateGPX()) {

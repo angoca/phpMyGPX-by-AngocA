@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: traces.html.php 316 2010-07-16 23:39:46Z sebastian $
+* @version $Id: traces.html.php 351 2010-10-02 15:13:52Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -127,9 +127,14 @@ class HTML_traces {
     		$icon_columns = 6;
     	else
     		$icon_columns = 4;
+		if($cfg['public_host'] && !$cfg['enable_gpx_download'] 
+			&& !check_password($cfg['admin_password']))
+			$icon_columns--;
     	
+		echo "<form name='view_gpx_form'>\n";
 		echo "<table class='data'>";
         echo "<tr class='head'>";
+		echo "<th></th>\n";
 		HTML::viewTabColHead($url, 3, $sort, $order, _CMN_DATE);
 		echo "<th>"._CMN_DESCRIPTION."</th>";
 		HTML::viewTabColHead($url, 5, $sort, $order, _CMN_LENGTH);
@@ -145,6 +150,7 @@ class HTML_traces {
     function viewGpxTableRow($gpx) {
 		global $cfg;
 		echo "<tr>
+			<td><input type='checkbox' name='bfiles[]' value='${gpx[id]}' /></td>
 			<td>". strftime(_DATE_FORMAT_LC, strtotime($gpx['mints']) + $gpx['timezone']*3600) ."</td>
 			<td><a href='?task=details&id=$gpx[id]'>$gpx[description]</a></td>
 			<td>". round($gpx['length']/1000, 1) ." km</td>
@@ -156,8 +162,11 @@ class HTML_traces {
 		}
 			echo "<td><a href='map.php?id=$gpx[id]'><img src='images/icon_osm_32.png' title='"._TRC_SHOW_MAP."' border='0' width=16 height=16 /></a></td>
 			<td><a href='?task=details&id=$gpx[id]'><img src='images/b_view.png' title='"._MENU_GPX_DETAILS."' border='0' /></a></td>
-			<td><a href='?task=view&id=$gpx[id]'><img src='images/b_browse.png' title='"._MENU_TRKPT_VIEW."' border='0' /></a></td>
-			<td><a href='files/$gpx[name]'><img src='images/b_export.png' title='"._MENU_GPX_DOWNL."' border='0' /></a></td>";
+			<td><a href='?task=view&id=$gpx[id]'><img src='images/b_browse.png' title='"._MENU_TRKPT_VIEW."' border='0' /></a></td>";
+		if(!$cfg['public_host'] || $cfg['enable_gpx_download'] 
+			|| check_password($cfg['admin_password'])) {
+			echo "<td><a href='files/$gpx[name]'><img src='images/b_export.png' title='"._MENU_GPX_DOWNL."' border='0' /></a></td>";
+		}
 		if(!$cfg['public_host'] || check_password($cfg['admin_password'])) {
 			echo "<td><a href='?task=edit&id=$gpx[id]'><img src='images/b_edit.png' title='"._MENU_GPX_EDIT."' border='0' /></a></td>
 				<td><a href='?task=delete&id=$gpx[id]'><img src='images/b_drop.png' title='"._MENU_GPX_DELETE."' border='0' /></a></td>";
@@ -166,7 +175,8 @@ class HTML_traces {
 	}
 
     function viewGpxTableFooter() {
-		echo "</table>\n";
+		echo "<tr><td colspan='8'><a href='javascript:showOnMap();'><img src='images/icon_osm_32.png' title='"._TRC_SHOW_ITEMS_ON_MAP."' border='0' width=16 height=16 hspace=5/>"._TRC_SHOW_ITEMS_ON_MAP."</a></td></tr>\n";
+		echo "</table></form>\n";
 	}
 
     function viewTraceTableHeader($url, $sort, $order) {

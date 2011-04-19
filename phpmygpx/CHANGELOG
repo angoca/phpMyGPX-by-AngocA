@@ -1,6 +1,24 @@
 Changelog
 ---------
 
+- feature: #51 - use geodesic measurement for scale line
+- upgrade OpenLayers library to version 2.10
+- bugfix: bottom pagination links ignore sorting of tables
+- feature: add black/white Mapnik map style, fixed zoom levels
+- feature: #53 - UI to select >1 GPX files to be shown on map
+- feature: #49 - reduce size (number of trkpts) of big GPX overlay shown on map
+- bugfix: #46 - fix file and directory permissions
+- feature: #12 (partly) - show more than one GPX on the map
+- feature: #32 - add config var 'photo_min_zoom' sets when photo icons appear
+- changed URL for OpenCycleMap tiles
+- bugfix: order trackpoints/waypoints by timestamps on GPX export 
+- feature: #50 - expand reading out the speed information (for GPX 1.1 schema)
+- feature: #48 - use OpenLayers buffer property and make it customizable
+- feature: add config var 'enable_gpx_download' to allow disabling links
+- bugfix: map: load thumbnails instead of resampling original big images
+- feature: add config var 'import_time_limit' for PHP's max execution time
+
+
 2010/07/27  phpMyGPX 0.6.1 released
 - bugfix: initialisation of JS generated links on map page
 - bugfix: #45 - database creation error caused by missing comma

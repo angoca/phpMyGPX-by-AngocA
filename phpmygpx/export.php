@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: export.php 317 2010-07-21 23:46:09Z sebastian $
+* @version $Id: export.php 346 2010-09-15 22:12:55Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -10,12 +10,14 @@ define( '_VALID_OSM', TRUE );
 define( '_PATH', './' );
 $DEBUG = FALSE;
 if($DEBUG) error_reporting(E_ALL);
+else       error_reporting(E_NONE);
 include("./config.inc.php");
 include("./libraries/functions.inc.php");
 setlocale (LC_TIME, $cfg['config_locale']);
 
 $id 			= getUrlParam('HTTP_GET', 'INT', 'id');
-$type			= getUrlParam('HTTP_GET', 'STRING', 'type');
+$wpt 			= getUrlParam('HTTP_GET', 'INT', 'wpt');
+$trkpt 			= getUrlParam('HTTP_GET', 'INT', 'trkpt');	// -1:all; 0:none; 1:reduce
 $f_date 		= getUrlParam('HTTP_GET', 'STRING', 'date');
 $f_lat			= getUrlParam('HTTP_GET', 'INT', 'lat');
 $f_lon			= getUrlParam('HTTP_GET', 'INT', 'lon');
@@ -29,75 +31,91 @@ $desc			= getUrlParam('HTTP_GET', 'STRING', 'desc');
 $link = db_connect_h($cfg['db_host'], $cfg['db_name'], $cfg['db_user'], $cfg['db_password']);
 
 
-if($type) {
+if(!$DEBUG) {
 	header("Content-type: text/xml");
-	header('Content-Disposition: attachment; filename="'.$type.'.gpx"');
-	
-	switch ($type) {
-		case 'trackpoints':
-			$query = "SELECT SQL_CALC_FOUND_ROWS *, 
-					DATE(`timestamp`) AS 'date', TIME(`timestamp`) AS 'time' 
-					FROM `${cfg['db_table_prefix']}gpx_import` ";
-			$query .= "WHERE 1 ";
-			if($id)
-				$query .= "AND `gpx_id` = '$id' ";
-			if($f_date)
-				$query .= "AND DATE(`timestamp`) = '$f_date' ";
-			if($f_lat)
-				$query .= "AND `latitude` BETWEEN '$f_lat'-'$f_lat_range' 
-						AND '$f_lat'+'$f_lat_range' ";
-			if($f_lon)
-				$query .= "AND `longitude` BETWEEN '$f_lon'-'$f_lon_range' 
-						AND '$f_lon'+'$f_lon_range' ";
-			break;
+	header('Content-Disposition: attachment; filename="export_'.$id.'.gpx"');
+}
+{
+	// get trackpoints from database
+	if($trkpt) {
+		$query = "SELECT SQL_CALC_FOUND_ROWS *, 
+				DATE(`timestamp`) AS 'date', TIME(`timestamp`) AS 'time' 
+				FROM `${cfg['db_table_prefix']}gpx_import` ";
+		$query .= "WHERE 1 ";
+		if($id)
+			$query .= "AND `gpx_id` = '$id' ";
+		if($f_date)
+			$query .= "AND DATE(`timestamp`) = '$f_date' ";
+		if($f_lat)
+			$query .= "AND `latitude` BETWEEN '$f_lat'-'$f_lat_range' 
+					AND '$f_lat'+'$f_lat_range' ";
+		if($f_lon)
+			$query .= "AND `longitude` BETWEEN '$f_lon'-'$f_lon_range' 
+					AND '$f_lon'+'$f_lon_range' ";
+		$query .= "ORDER BY `timestamp` ";
 		
-		case 'waypoints':
-			$query = "SELECT SQL_CALC_FOUND_ROWS *, 
-					DATE(`timestamp`) AS 'date', TIME(`timestamp`) AS 'time' 
-					FROM `${cfg['db_table_prefix']}waypoints` ";
-			$query .= "WHERE 1 ";
-			if($id)
-				$query .= "AND `gpx_id` = '$id' ";
-			if($f_date)
-				$query .= "AND DATE(`timestamp`) = '$f_date' ";
-			if($f_lat)
-				$query .= "AND `latitude` BETWEEN '$f_lat'-'$f_lat_range' 
-						AND '$f_lat'+'$f_lat_range' ";
-			if($f_lon)
-				$query .= "AND `longitude` BETWEEN '$f_lon'-'$f_lon_range' 
-						AND '$f_lon'+'$f_lon_range' ";
-			if($name)
-				$query .= "AND `name` LIKE '%$name%' ";
-			if($comment)
-				$query .= "AND `cmt` LIKE '%$comment%' ";
-			if($description)
-				$query .= "AND `desc` LIKE '%$description%' ";
-			break;
-	}
-
-    $result = db_query($query);
-	#if($DEBUG)	out($query, 'OUT_DEBUG');
-    if(mysql_num_rows($result)) {
+	    $result_trkpt = db_query($query);
+		if($DEBUG)	out($query, 'OUT_DEBUG');
+		
 		$num_found = mysql_result(db_query("SELECT FOUND_ROWS();") ,0);
-		writeGpxHeader();
-
-		switch ($type) {
-			case 'trackpoints':
-				writeGpxTrkBegin();
-				while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-					writeGpxTrkpt($row);
-				}
-				writeGpxTrkEnd();
-				break;
-			
-			case 'waypoints':
-				while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-					writeGpxWpt($row);
-				}
-				break;
+		$divider = 1;
+		// set max number of trackpoints per GPX
+		if($trkpt > 0) {
+			if($trkpt == 1 && $cfg['map_gpx_max_trkpts']) {
+				$trkpt = $cfg['map_gpx_max_trkpts'];
+			}
+			$divider = ceil($num_found / $trkpt);
+			if($DEBUG)	out("$num_found / $trkpt = $divider", 'OUT_DEBUG');
 		}
-		writeGpxFooter();
 	}
+	// get waypoints from database
+	if($wpt) {
+		$query = "SELECT SQL_CALC_FOUND_ROWS *, 
+				DATE(`timestamp`) AS 'date', TIME(`timestamp`) AS 'time' 
+				FROM `${cfg['db_table_prefix']}waypoints` ";
+		$query .= "WHERE 1 ";
+		if($id)
+			$query .= "AND `gpx_id` = '$id' ";
+		if($f_date)
+			$query .= "AND DATE(`timestamp`) = '$f_date' ";
+		if($f_lat)
+			$query .= "AND `latitude` BETWEEN '$f_lat'-'$f_lat_range' 
+					AND '$f_lat'+'$f_lat_range' ";
+		if($f_lon)
+			$query .= "AND `longitude` BETWEEN '$f_lon'-'$f_lon_range' 
+					AND '$f_lon'+'$f_lon_range' ";
+		if($name)
+			$query .= "AND `name` LIKE '%$name%' ";
+		if($comment)
+			$query .= "AND `cmt` LIKE '%$comment%' ";
+		if($description)
+			$query .= "AND `desc` LIKE '%$description%' ";
+		$query .= "ORDER BY `timestamp` ";
+		
+	    $result_wpt = db_query($query);
+		if($DEBUG)	out($query, 'OUT_DEBUG');
+	}
+
+	// prepare GPX XML output
+	writeGpxHeader();
+	// write trackpoints
+	if($trkpt) {
+		writeGpxTrkBegin();
+		$i = 1;
+		while($row = mysql_fetch_array($result_trkpt, MYSQL_ASSOC)) {
+			$i++;
+			if($i % $divider)	continue;
+			writeGpxTrkpt($row);
+		}
+		writeGpxTrkEnd();
+	}
+	// write waypoints
+	if($wpt) {
+		while($row = mysql_fetch_array($result_wpt, MYSQL_ASSOC)) {
+			writeGpxWpt($row);
+		}
+	}
+	writeGpxFooter();
 }
 
 

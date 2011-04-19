@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: map.classes.php 294 2010-05-21 22:13:33Z sebastian $
+* @version $Id: map.classes.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -14,7 +14,9 @@ class SlippyMap {
 	private $zoom = 0;
 	private $bbox = array('t'=>0, 'r'=>0, 'b'=>0, 'l'=>0);
 	private $controls = 'normal';
+	private $buffer = 1;
 	private $proxy = 0;
+	private $photominzoom = 14;
 	private $gpx = null;
 	private $baselayers = null;	// mapnik, osma, cycle
 	private $overlays = null;	// gpx, markers, photos, hiking
@@ -26,6 +28,10 @@ class SlippyMap {
 		$this->lat = floatval($cfg['home_latitude']);
 		$this->lon = floatval($cfg['home_longitude']);
 		$this->zoom = intval($cfg['home_zoom']);
+		if(isset($cfg['map_tile_buffer']))
+			$this->buffer = intval($cfg['map_tile_buffer']);
+		if(isset($cfg['photo_min_zoom']))
+			$this->photominzoom = intval($cfg['photo_min_zoom']);
 	}
 	
 	public function setMapSize($w, $h) {
@@ -78,11 +84,14 @@ class SlippyMap {
 			case 'controls':
 				$this->controls = strip_tags($state);
 				break;
+			case 'buffer':
+				$this->buffer = (int) $state;
+				break;
 			case 'proxy':
 				$this->proxy = (bool) $state;
 				break;
 			case 'gpx':
-				$this->gpx = strip_tags($state);
+				$this->gpx = $state;
 				break;
 		}
 	}
@@ -141,15 +150,30 @@ class SlippyMap {
 	
 	public function embedJSinitMap() {
 		echo '<script type="text/javascript">'."\n";
+		// create Array for GPX files
+		if (is_array($this->gpx)) {
+			$gpx = "Array(";
+			for ($i=0; $i<count($this->gpx);$i++) {
+				$gpx .= "'". strip_tags($this->gpx[$i]) ."'";
+				if ($i < count($this->gpx)-1)
+					$gpx .= ",";
+			}
+			$gpx .= ")";
+		}
+		else {
+			$gpx = "'". strip_tags($this->gpx) ."'";
+		}
 		echo "createMap(
 				$this->lat , $this->lon , $this->zoom ,
 				".$this->bbox['t']." , ".$this->bbox['r']." , 
 				".$this->bbox['b']." , ".$this->bbox['l']." , 
 				'".strip_tags($this->controls)."' ,
-				'".strip_tags($this->gpx)."' ,
+				$gpx ,
 				".intval($this->_isSelectedOverlay('hiking'))." ,
 				".intval($this->_isSelectedOverlay('marker'))." ,
 				".intval($this->_isSelectedOverlay('photos'))." ,
+				".intval($this->photominzoom)." ,
+				".intval($this->buffer)." ,
 				".intval($this->proxy)." );\n";
 		echo "</script>\n";
 	}

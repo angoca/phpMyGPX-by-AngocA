@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: photos.html.php 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: photos.html.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -41,6 +41,7 @@ class HTML_photos {
 		$map->setMapCenter($lat, $lon, 17);
 		if(intval($cfg['local_tile_proxy'] && checkCapability('proxysimple')))
 			$map->enableFeatures(array('proxy'=>TRUE));
+		$map->enableFeatures(array('buffer'=>'0'));
 		$map->enableFeatures(array('controls'=>'minimal'));
 		$map->enableOverlays(new Layer('marker',TRUE));
 		$map->embed();

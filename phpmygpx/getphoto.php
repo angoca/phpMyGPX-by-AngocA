@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: getphoto.php 259 2010-04-13 21:49:01Z sebastian $
+* @version $Id: getphoto.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -40,18 +40,20 @@ if(!$type) {
 	if(mysql_num_rows($result)) {
 		while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			// load image file
-			if($im->load('./photos/'. $row['file'])) {
-				if($width)
-					$thumb_size = $width;
-				else
-					$thumb_size = $cfg['photo_thumb_width'];
-				$thumb = $im->rotate($im->createThumbnail($thumb_size), 'auto');
+			if(!$width) {
+				// using existing thumbnail for maximum speed
+				if($im->load('./photos/thumbs/'. $row['file']))
+					$thumb = imagecreatefromjpeg($im->imageURI);
+			}else {
+				// creating thumb (resampling original image)
+				if($im->load('./photos/'. $row['file'])) {
+					$thumb = $im->rotate($im->createThumbnail($width), 'auto');
+				}
 			}
 		}
 	}
 	
 }
-
 
 if(!$name)
 	ImageJPEG ($thumb);
@@ -59,5 +61,4 @@ else
 	ImageJPEG ($thumb, "./files/".$name.".jpg");
 
 ImageDestroy ($thumb);
-
 ?>

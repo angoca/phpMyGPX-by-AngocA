@@ -1,5 +1,5 @@
 /**
-* @version $Id: photolayer.js 259 2010-04-13 21:49:01Z sebastian $
+* @version $Id: photolayer.js 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) Florian Lohoff
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -127,7 +127,7 @@ PhotoLayer.Photos = OpenLayers.Class({
 		feature.width = width;
 		feature.height = height;
 		feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud);
-		feature.data.popupContentHTML = '<img src="getphoto.php?x=160&id=' + id + '" />' +
+		feature.data.popupContentHTML = '<img src="getphoto.php?x=0&id=' + id + '" />' +
 			'<br>' + time;
 		feature.photos = this;
 

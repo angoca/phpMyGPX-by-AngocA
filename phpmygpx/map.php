@@ -1,13 +1,14 @@
 <?php
 /**
-* @version $Id: map.php 324 2010-07-27 15:35:51Z sebastian $
+* @version $Id: map.php 348 2010-09-15 22:48:25Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
 define( '_VALID_OSM', TRUE );
 define( '_PATH', './' );
+define( 'GPX_FILES_DIR', './files/');
 $DEBUG = FALSE;
 if($DEBUG) error_reporting(E_ALL);
 
@@ -33,6 +34,15 @@ if($DEBUG) {
 }
 
 $id 	= getUrlParam('HTTP_GET', 'INT', 'id');
+$id1 	= getUrlParam('HTTP_GET', 'INT', 'id1');
+if(isset($id1)) {
+	$id = NULL;
+	$nextid = getUrlParam('HTTP_GET', 'INT', 'id1');
+	for($i=2; $nextid; $i++) {
+		$id[] = $nextid;
+		$nextid = getUrlParam('HTTP_GET', 'INT', 'id'.$i);
+	}
+}
 $gpx 	= getUrlParam('HTTP_GET', 'STRING', 'gpx');
 $f_lat	= getUrlParam('HTTP_GET', 'FLOAT', 'lat');
 $f_lon	= getUrlParam('HTTP_GET', 'FLOAT', 'lon');
@@ -56,14 +66,30 @@ $f_maxlon = 0;
 if(!$zoom)	$zoom = 15;
 if(!$f_lat || !$f_lon) {
 	if($id) {
+	    if(is_Array($id)) {
+			foreach ($id as $d) {
+				if($whereGPX!="")	$whereGPX .= " OR ";
+				$whereGPX .= "`gpx_id` = '$d'";
+				if($whereId!="")	$whereId .= " OR ";
+				$whereId .= "`id` = '$d'";
+				$gpx[] = "export.php?trkpt=1&wpt=1&id=$d";
+			}
+		}else {
+			$whereGPX = "`gpx_id` = '$id'";
+			$whereId = "`id` = '$id'";
+			$gpx = "export.php?trkpt=1&wpt=1&id=$id";
+		}
 		if(!$gpx) {
 			$query = "SELECT * FROM `${cfg['db_table_prefix']}gpx_files` 
-						WHERE `id` = '$id' ;";
+						WHERE $whereId;";
 			$result = db_query($query);
 			if($DEBUG)	out($query, 'OUT_DEBUG');
 			if(mysql_num_rows($result)) {
 				while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-					$gpx = $row['name'];
+					if(is_Array($id))
+						$gpx[] = GPX_FILES_DIR . $row['name'];
+					else
+						$gpx = GPX_FILES_DIR . $row['name'];
 				}
 			}
 		}
@@ -71,29 +97,37 @@ if(!$f_lat || !$f_lon) {
 	    $query = "SELECT `gpx_id`, 
 			MIN(`latitude`) AS 'minlat', MAX(`latitude`) AS 'maxlat', AVG(`latitude`) AS 'avglat', 
 			MIN(`longitude`) AS 'minlon', MAX(`longitude`) AS 'maxlon', AVG(`longitude`) AS 'avglon'
-			FROM `${cfg['db_table_prefix']}gpx_import` WHERE `gpx_id` = '$id' GROUP BY `gpx_id` ;";
+			FROM `${cfg['db_table_prefix']}gpx_import` WHERE $whereGPX GROUP BY `gpx_id` ;";
 	    $result = db_query($query);
 		if($DEBUG)	out($query, 'OUT_DEBUG');
 	    if(mysql_num_rows($result)) {
 	    	while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-				$f_minlat = $row['minlat'] /1000000;
-				$f_maxlat = $row['maxlat'] /1000000;
-				$f_minlon = $row['minlon'] /1000000;
-				$f_maxlon = $row['maxlon'] /1000000;
+				if( $f_minlat==0 || $f_minlat>$row['minlat'] /1000000 )
+					$f_minlat = $row['minlat'] /1000000;
+				if( $f_maxlat==0 || $f_maxlat<$row['maxlat'] /1000000 )
+					$f_maxlat = $row['maxlat'] /1000000;
+				if( $f_minlon==0 || $f_minlon>$row['minlon'] /1000000 )
+					$f_minlon = $row['minlon'] /1000000;
+				if ($f_maxlon==0 || $f_maxlon<$row['maxlon'] /1000000 )
+					$f_maxlon = $row['maxlon'] /1000000;
 	    	}
 		}else {
 		    $query = "SELECT `gpx_id`, 
 				MIN(`latitude`) AS 'minlat', MAX(`latitude`) AS 'maxlat', AVG(`latitude`) AS 'avglat', 
 				MIN(`longitude`) AS 'minlon', MAX(`longitude`) AS 'maxlon', AVG(`longitude`) AS 'avglon'
-				FROM `${cfg['db_table_prefix']}waypoints` WHERE `gpx_id` = '$id' GROUP BY `gpx_id` ;";
+				FROM `${cfg['db_table_prefix']}waypoints` WHERE $whereGPX GROUP BY `gpx_id` ;";
 		    $result = db_query($query);
 			if($DEBUG)	out($query, 'OUT_DEBUG');
 		    if(mysql_num_rows($result)) {
 		    	while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-					$f_minlat = $row['minlat'] /1000000;
-					$f_maxlat = $row['maxlat'] /1000000;
-					$f_minlon = $row['minlon'] /1000000;
-					$f_maxlon = $row['maxlon'] /1000000;
+					if( $f_minlat==0 || $f_minlat>$row['minlat'] /1000000 )
+						$f_minlat = $row['minlat'] /1000000;
+					if( $f_maxlat==0 || $f_maxlat<$row['maxlat'] /1000000 )
+						$f_maxlat = $row['maxlat'] /1000000;
+					if( $f_minlon==0 || $f_minlon>$row['minlon'] /1000000 )
+						$f_minlon = $row['minlon'] /1000000;
+					if ($f_maxlon==0 || $f_maxlon<$row['maxlon'] /1000000 )
+						$f_maxlon = $row['maxlon'] /1000000;
 		    	}
 			}
 		}

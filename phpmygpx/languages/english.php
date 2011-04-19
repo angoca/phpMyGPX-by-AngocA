@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: english.php 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: english.php 351 2010-10-02 15:13:52Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -95,6 +95,7 @@ DEFINE('_CMN_PAGE','Page');
 DEFINE('_CMN_BATCH','Batch processing');
 DEFINE('_CMN_SINGLE_FILE','Single file');
 DEFINE('_CMN_MAX_FILE_SIZE','maximum file size: ');
+DEFINE('_CMN_NO_ITEM_SELECTED','No item selected!');
 DEFINE('_CMN_COPY_DATE','Copy date');
 DEFINE('_CMN_OTHER','other');
 DEFINE('_CMN_VIEW','View');
@@ -264,6 +265,7 @@ DEFINE('_TRC_TOTAL','Total');
 DEFINE('_TRC_DETAILS_CHART_SPLIT','The elevation chart was split due to breaks in the track:');
 DEFINE('_TRC_SHOW_MAP','Show map');
 DEFINE('_TRC_SHOW_OSM_MAP','Show map on OSM');
+DEFINE('_TRC_SHOW_ITEMS_ON_MAP','Show selected items on map');
 DEFINE('_TRC_USE_DP_FOR_SEARCH','Please use decimal points for float numbers.');
 DEFINE('_TRC_SEARCH_PARAMS_LOGIC_AND','Search parameters are evaluated with logic AND.');
 DEFINE('_TRC_CHOOSE_SEARCH_FILTER','Choose filter for searching: ');
@@ -338,7 +340,7 @@ DEFINE('_DB_BOOKM_AVAILABLE',' bookmarks found in database.');
 DEFINE('_DB_PHOTOS_AVAILABLE',' photos found in database.');
 DEFINE('_DB_PHOTOS_SIZE',' total size of photo files.');
 DEFINE('_DB_GPX_SIZE',' total size of GPX files.');
-DEFINE('_DB_TOTAL_DISTANCE',' km total distance');
+DEFINE('_DB_TOTAL_DISTANCE',' total distance');
 
 /** about.php */
 DEFINE('_ABOUT_CREDITS','Credits');

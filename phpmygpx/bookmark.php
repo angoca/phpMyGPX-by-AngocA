@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: bookmark.php 300 2010-05-25 22:15:57Z sebastian $
+* @version $Id: bookmark.php 356 2010-11-08 00:09:21Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -160,7 +160,7 @@ function listBookmarks($page, $sort, $order, $limit) {
 		HTML_bookmarks::viewBookmarksTableFooter();
 		
 		HTML::viewPagination($page, ceil($num_found/$limit), 
-			'bookmark.php?task=list'.$search_url);
+			'bookmark.php?task=list&s=$sort&o=$order'.$search_url);
 		HTML::message($num_found ._DB_BOOKM_AVAILABLE);
 	}
 	else

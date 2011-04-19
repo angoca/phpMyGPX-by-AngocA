@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: waypoints.php 317 2010-07-21 23:46:09Z sebastian $
+* @version $Id: waypoints.php 356 2010-11-08 00:09:21Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -193,11 +193,11 @@ function viewWaypoints($id, $page, $sort, $order, $limit) {
 		HTML_waypoints::viewWPTsTableFooter();
 		
 		HTML::viewPagination($page, ceil($num_found/$limit), 
-			"waypoints.php?task=view&id=$id".$search_url);
+			"waypoints.php?task=view&id=$id&s=$sort&o=$order".$search_url);
 		if($option != "filter" && !$id) {
 			HTML::message($num_found ._DB_WPTS_AVAILABLE);
 		}else {
-			HTML::message("<a href='export.php?type=waypoints$search_url'>". _TRC_EXPORT_AS_GPX ."</a>");
+			HTML::message("<a href='export.php?wpt=-1$search_url'>". _TRC_EXPORT_AS_GPX ."</a>");
 		}
 	}
 	else

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: german.php 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: german.php 351 2010-10-02 15:13:52Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -95,6 +95,7 @@ DEFINE('_CMN_PAGE','Seite');
 DEFINE('_CMN_BATCH','Stapelverarbeitung');
 DEFINE('_CMN_SINGLE_FILE','Einzelne Datei');
 DEFINE('_CMN_MAX_FILE_SIZE','maximale Dateigr&ouml;&szlig;e: ');
+DEFINE('_CMN_NO_ITEM_SELECTED','Es wurde kein Element ausgewählt!');
 DEFINE('_CMN_COPY_DATE','Datum &uuml;bernehmen');
 DEFINE('_CMN_OTHER','andere');
 DEFINE('_CMN_VIEW','Ansicht');
@@ -264,6 +265,7 @@ DEFINE('_TRC_TOTAL','Gesamt');
 DEFINE('_TRC_DETAILS_CHART_SPLIT','Das H&ouml;henprofil wurde wegen Pausen im Track unterteilt:');
 DEFINE('_TRC_SHOW_MAP','Karte anzeigen');
 DEFINE('_TRC_SHOW_OSM_MAP','OSM-Karte anzeigen');
+DEFINE('_TRC_SHOW_ITEMS_ON_MAP','Ausgew&auml;hlte Elemente auf Karte zeigen');
 DEFINE('_TRC_USE_DP_FOR_SEARCH','Bitte benutzen Sie einen Punkt als Dezimaltrennzeichen.');
 DEFINE('_TRC_SEARCH_PARAMS_LOGIC_AND','Mehrere Suchparameter werden mittels logischem UND verkn&uuml;pft.');
 DEFINE('_TRC_CHOOSE_SEARCH_FILTER','W&auml;hlen Sie passende Such-Filter aus: ');
@@ -338,7 +340,7 @@ DEFINE('_DB_BOOKM_AVAILABLE',' Lesezeichen sind vorhanden.');
 DEFINE('_DB_PHOTOS_AVAILABLE',' Fotos sind vorhanden.');
 DEFINE('_DB_PHOTOS_SIZE',' Speicherplatz von Foto-Dateien belegt.');
 DEFINE('_DB_GPX_SIZE',' Speicherplatz von GPX-Dateien belegt.');
-DEFINE('_DB_TOTAL_DISTANCE',' km Gesamtwegl&auml;nge');
+DEFINE('_DB_TOTAL_DISTANCE',' Gesamtwegl&auml;nge');
 
 /** about.php */
 DEFINE('_ABOUT_CREDITS','Danksagungen');

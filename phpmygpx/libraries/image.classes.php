@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: image.classes.php 320 2010-07-24 21:02:57Z sebastian $
+* @version $Id: image.classes.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -105,7 +105,7 @@ class ImageFile {
 	function importPhoto($gpx_id, $title_opt, $title, $desc_opt, $description, 
 			$timezone, $offset, $option) {
 		global $DEBUG, $cfg;
-		set_time_limit(30);
+		set_time_limit($cfg['import_time_limit']);
 		$status = array('error'=>-1, 'lid'=>0, 'msg'=>'');
 		
 		// read IPTC data

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: dutch.php 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: dutch.php 351 2010-10-02 15:13:52Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -95,6 +95,7 @@ DEFINE('_CMN_PAGE','Pagina');
 DEFINE('_CMN_BATCH','Bulkverwerking');
 DEFINE('_CMN_SINGLE_FILE','Enkel bestand');
 DEFINE('_CMN_MAX_FILE_SIZE','maximum file size: ');
+DEFINE('_CMN_NO_ITEM_SELECTED','No item selected!');
 DEFINE('_CMN_COPY_DATE','Copy date');
 DEFINE('_CMN_OTHER','ander');
 DEFINE('_CMN_VIEW','Bekijken');
@@ -264,6 +265,7 @@ DEFINE('_TRC_TOTAL','Totaal');
 DEFINE('_TRC_DETAILS_CHART_SPLIT','De hoogtegrafiek werd wegens trajectpauzes onderverdeeld:');
 DEFINE('_TRC_SHOW_MAP','Toon kaart');
 DEFINE('_TRC_SHOW_OSM_MAP','Toon OSM-kaart');
+DEFINE('_TRC_SHOW_ITEMS_ON_MAP','Show selected items on map');
 DEFINE('_TRC_USE_DP_FOR_SEARCH','Gebruik een punt als decimaalteken.');
 DEFINE('_TRC_SEARCH_PARAMS_LOGIC_AND','De zoekparameters worden middels een logische EN-relatie met elkaar gecombineerd.');
 DEFINE('_TRC_CHOOSE_SEARCH_FILTER','Geef een zoekbegrip in: ');
@@ -338,7 +340,7 @@ DEFINE('_DB_BOOKM_AVAILABLE',' bladwijzers gevonden in database.');
 DEFINE('_DB_PHOTOS_AVAILABLE',' foto\'s gevonden in database.');
 DEFINE('_DB_PHOTOS_SIZE',' totale omvang van alle fotobestanden.');
 DEFINE('_DB_GPX_SIZE',' totale omvang van alle GPX-bestanden.');
-DEFINE('_DB_TOTAL_DISTANCE',' km totale trajectlengte');
+DEFINE('_DB_TOTAL_DISTANCE',' totale trajectlengte');
 
 /** about.php */
 DEFINE('_ABOUT_CREDITS','Dankbetuigingen');

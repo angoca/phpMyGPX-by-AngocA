@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: classes.php 313 2010-06-04 21:31:57Z sebastian $
+* @version $Id: classes.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -389,7 +389,7 @@ class GpxDocument extends DomDocument{
 	
 	function importGPX($description, $timezone, $option) {
 		global $DEBUG, $cfg;
-		set_time_limit(30);
+		set_time_limit($cfg['import_time_limit']);
 		$status = array();
 		$status['error'] = -1; 
 		
@@ -594,6 +594,9 @@ class GpxDocument extends DomDocument{
 						case 'speed':
 							$trkpt->setSpeed($subitem->textContent);
 							break;
+						case 'extensions':
+							$this->getTrackPointsExtensions($trkpt,$subitem);
+							break;
 					}
 				}
 			}
@@ -601,6 +604,22 @@ class GpxDocument extends DomDocument{
     	}
     	return $trackpoints;
     }
+
+    # read speed from extensions-node and write it into the trackpoint
+    function getTrackPointsExtensions($trkpt,$item) {
+	if($item->hasChildNodes()) {
+		$chNodes = $item->childNodes;
+		foreach ($chNodes as $subitem) {
+			switch ($subitem->nodeName) {
+				case 'nmea:speed':
+				case 'speed':
+					$trkpt->setSpeed($subitem->textContent);
+					break;
+				}
+			}
+		}
+    }
+
 
     function getTracksegments($track) {
     	$tracksegments = new TrackSegmentList();

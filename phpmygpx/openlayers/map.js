@@ -1,18 +1,21 @@
 /**
-* @version $Id: map.js 301 2010-05-27 15:45:45Z sebastian $
+* @version $Id: map.js 360 2010-11-20 22:53:09Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2009 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
 //complex object of type OpenLayers.Map
 var map;
 var photolayer;
+var colorpalette = Array ('#9900ff', '#ff00ff', '#ff0099', '#ff0033', '#ff3300',
+						  '#ff9900', '#ffff00', '#99ff00', '#33ff00', '#00ff33',
+						  '#00ff99', '#00ffff', '#0099ff', '#0033ff', '#3300ff');
 
 function createMap(lat, lon, zoom, 
 					maxlat, maxlon, minlat, minlon, 
 					controls, 
-					gpxFile, hiking, marker, poi, proxy) {
+					gpxFile, hiking, marker, poi, poiminzoom, tilebuffer, proxy) {
 	
 	//Initialise the 'map' object
 	map = new OpenLayers.Map ("map", {
@@ -34,7 +37,7 @@ function createMap(lat, lon, zoom,
 	} else {
 		map.addControl(new OpenLayers.Control.PanZoomBar());
 		map.addControl(new OpenLayers.Control.LayerSwitcher());
-		map.addControl(new OpenLayers.Control.ScaleLine());
+		map.addControl(new OpenLayers.Control.ScaleLine({geodesic: true}));
 		
 		// Initialize seperatly - we store the input value in an extra args array there
 		this.permalink = new OpenLayers.Control.Permalink('permalink');
@@ -48,25 +51,30 @@ function createMap(lat, lon, zoom,
 	// of several layers is also quite simple
 	// Other defined layers are OpenLayers.Layer.OSM.Mapnik, OpenLayers.Layer.OSM.Maplint and OpenLayers.Layer.OSM.CycleMap
 	
-	layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+	layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik", {buffer:tilebuffer});
 	map.addLayer(layerMapnik);
 	
-	layerTilesAtHome = new OpenLayers.Layer.OSM.Osmarender("Osmarender");
+	if (hiking) {
+		layerMapnikBW = new OpenLayers.Layer.OSM.MapnikBW("Mapnik b/w", {buffer:tilebuffer});
+		map.addLayer(layerMapnikBW);
+	}
+	
+	layerTilesAtHome = new OpenLayers.Layer.OSM.Osmarender("Osmarender", {buffer:tilebuffer});
 	map.addLayer(layerTilesAtHome);
 	
-	layerCycleMap = new OpenLayers.Layer.OSM.CycleMap("CycleMap");
+	layerCycleMap = new OpenLayers.Layer.OSM.CycleMap("CycleMap", {buffer:tilebuffer});
 	map.addLayer(layerCycleMap);
 	
 	if (hiking) {
-		layerHiking = new OpenLayers.Layer.OSM.Hiking("Hiking Paths", {visibility:false});
+		layerHiking = new OpenLayers.Layer.OSM.Hiking("Hiking Paths", {buffer:tilebuffer, visibility:false});
 		map.addLayer(layerHiking);
 	}
 	
 	if (hiking) {
-		layerHikeBike = new OpenLayers.Layer.OSM.HikeBike("Hike & Bike Map");
+		layerHikeBike = new OpenLayers.Layer.OSM.HikeBike("Hike & Bike Map", {buffer:tilebuffer});
 		map.addLayer(layerHikeBike);
 		
-		layerHillshading = new OpenLayers.Layer.OSM.Hillshading("Hillshading (NASA SRTM3 v2)");
+		layerHillshading = new OpenLayers.Layer.OSM.Hillshading("Hillshading (NASA SRTM3 v2)", {buffer:tilebuffer});
 		map.addLayer(layerHillshading);
 		
 		//layerLit = new OpenLayers.Layer.OSM.Lit("By Night (lit=yes/no)");
@@ -74,17 +82,17 @@ function createMap(lat, lon, zoom,
 	}
 	
 	if (proxy) {
-		layerMapnikLocalProxy = new OpenLayers.Layer.OSM.MapnikLocalProxy("Mapnik (local proxy)");
+		layerMapnikLocalProxy = new OpenLayers.Layer.OSM.MapnikLocalProxy("Mapnik (local proxy)", {buffer:tilebuffer});
 		map.addLayer(layerMapnikLocalProxy);
 		
-		layerTilesAtHomeLocalProxy = new OpenLayers.Layer.OSM.OsmarenderLocalProxy("Osmarender (local proxy)");
+		layerTilesAtHomeLocalProxy = new OpenLayers.Layer.OSM.OsmarenderLocalProxy("Osmarender (local proxy)", {buffer:tilebuffer});
 		map.addLayer(layerTilesAtHomeLocalProxy);
 		
 		// use proxy for base layer
 		map.setBaseLayer(layerMapnikLocalProxy);
 		
 		if (hiking) {
-			layerHikeBikeLocalProxy = new OpenLayers.Layer.OSM.HikeBikeLocalProxy("Hike & Bike (local proxy)");
+			layerHikeBikeLocalProxy = new OpenLayers.Layer.OSM.HikeBikeLocalProxy("Hike & Bike (local proxy)", {buffer:tilebuffer});
 			map.addLayer(layerHikeBikeLocalProxy);
 		}
 	}
@@ -103,10 +111,22 @@ function createMap(lat, lon, zoom,
 		    projection: new OpenLayers.Projection("EPSG:4326")
 		});
 		*/
-		var lgpx = new OpenLayers.Layer.GPX("GPX-Track", "./files/" + gpxFile , "#9900ff");
-		map.addLayer(lgpx);
+		if (typeof(gpxFile)=='object' && (gpxFile instanceof Array) && gpxFile.length>0) {
+			for (var i=0; i<gpxFile.length; i++) {
+				var gpxID = gpxFile[i].match(/id=(\d+)/);
+				var lgpx = new OpenLayers.Layer.GPX("GPX-Track (#" + gpxID[1] + ")", 
+							gpxFile[i] , colorpalette[i%colorpalette.length]);
+				map.addLayer(lgpx);
+			}
+		}
+		else {
+			var gpxID = gpxFile.match(/id=(\d+)/);
+			var lgpx = new OpenLayers.Layer.GPX("GPX-Track (#" + gpxID[1] + ")", 
+						gpxFile , colorpalette[0]);
+			map.addLayer(lgpx);
+		}
 	}
-		
+	
 	if (poi) {
 		// add the layer for POIs and photos
 		/*
@@ -117,7 +137,7 @@ function createMap(lat, lon, zoom,
 		map.addLayer(pois);
 		*/
 		// Add overlay layer for photos
-		photolayer = new PhotoLayer('pois.php', map, {minzoom:14});
+		photolayer = new PhotoLayer('pois.php', map, {minzoom:poiminzoom});
 	}
 	
 	if (maxlat && maxlon && minlat && minlon) {
@@ -154,7 +174,6 @@ function createMap(lat, lon, zoom,
 function plusfacteur (a) {
         return a * (20037508.34 / 180);
 }
-
 function moinsfacteur (a) {
         return a / (20037508.34 / 180);
 }

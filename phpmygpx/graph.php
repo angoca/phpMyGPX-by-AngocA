@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: graph.php 314 2010-06-04 22:44:18Z sebastian $
+* @version $Id: graph.php 341 2010-08-22 20:59:49Z sebastian $
 * @package osm-things
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php

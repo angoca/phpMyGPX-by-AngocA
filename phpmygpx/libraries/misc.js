@@ -1,5 +1,5 @@
 /**
-* @version $Id: misc.js 319 2010-07-23 21:38:57Z sebastian $
+* @version $Id: misc.js 357 2010-11-20 17:05:53Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -42,6 +42,31 @@ function changeChartType(type) {
 		var chart_link_new = chart_link.replace(type_old, type);
 		document.getElementById("chart_link_" + chart_count).href = chart_link_new;
 		chart_count++;
+	}
+}
+
+// traces.php
+function showOnMap() {
+	var idcount = 0;
+	var mapurl = 'map.php?';
+	var filecount = document.view_gpx_form.elements['bfiles[]'].length; //'
+	if (!filecount) {
+		if (document.view_gpx_form.elements['bfiles[]'].checked) { //'
+			idcount ++;
+			mapurl += 'id=' + document.view_gpx_form.elements['bfiles[]'].value + '&'; //'
+		}
+	} else {
+		for (i=0; i< filecount; ++i) {
+			if (document.view_gpx_form.elements['bfiles[]'][i].checked) { //'
+				idcount ++;
+				mapurl += 'id' + idcount + '=' + document.view_gpx_form.elements['bfiles[]'][i].value + '&'; //'
+			}
+		}
+	}
+	if (idcount) {
+		location.href = mapurl;
+	} else {
+		alert(i18n_strings['_CMN_NO_ITEM_SELECTED']);
 	}
 }
 

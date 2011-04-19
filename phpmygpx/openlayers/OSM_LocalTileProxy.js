@@ -1,7 +1,7 @@
 /**
-* @version $Id: OSM_LocalTileProxy.js 301 2010-05-27 15:45:45Z sebastian $
+* @version $Id: OSM_LocalTileProxy.js 354 2010-11-07 22:16:43Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2009 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -75,7 +75,7 @@ OpenLayers.Layer.OSM.HikeBikeLocalProxy = OpenLayers.Class(OpenLayers.Layer.OSM,
         var url = [
             "proxysimple.php?z=${z}&x=${x}&y=${y}&r=hikebike"
         ];
-        options = OpenLayers.Util.extend({ numZoomLevels: 17 }, options);
+        options = OpenLayers.Util.extend({ numZoomLevels: 18 }, options);
         var newArguments = [name, url, options];
         OpenLayers.Layer.OSM.prototype.initialize.apply(this, newArguments);
     },

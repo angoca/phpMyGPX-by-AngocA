@@ -1,5 +1,5 @@
 /**
-* @version $Id: i18n.js.php 322 2010-07-27 14:37:30Z sebastian $
+* @version $Id: i18n.js.php 351 2010-10-02 15:13:52Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -24,3 +24,4 @@ var i18n_strings = new Array();
 i18n_strings['_MAP_JS_BOOKM_NAME'] = "<?php echo _MAP_JS_BOOKM_NAME ?>";
 i18n_strings['_IMPORT_NO_AJAX'] = "<?php echo _IMPORT_NO_AJAX ?>";
 i18n_strings['_IMPORT_PHP_ERROR'] = "<?php echo _IMPORT_PHP_ERROR ?>";
+i18n_strings['_CMN_NO_ITEM_SELECTED'] = "<?php echo _CMN_NO_ITEM_SELECTED ?>";

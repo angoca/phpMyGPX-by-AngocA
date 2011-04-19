@@ -1,5 +1,5 @@
 /**
-* @version $Id: OpenStreetMap.js 259 2010-04-13 21:49:01Z sebastian $
+* @version $Id: OpenStreetMap.js 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) unknown OpenStreetMap contributor
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -107,9 +107,9 @@ OpenLayers.Layer.OSM.CycleMap = OpenLayers.Class(OpenLayers.Layer.OSM, {
      */
     initialize: function(name, options) {
         var url = [
-            "http://a.andy.sandbox.cloudmade.com/tiles/cycle/${z}/${x}/${y}.png",
-            "http://b.andy.sandbox.cloudmade.com/tiles/cycle/${z}/${x}/${y}.png",
-            "http://c.andy.sandbox.cloudmade.com/tiles/cycle/${z}/${x}/${y}.png"
+            "http://a.tile.opencyclemap.org/cycle/${z}/${x}/${y}.png",
+            "http://b.tile.opencyclemap.org/cycle/${z}/${x}/${y}.png",
+            "http://c.tile.opencyclemap.org/cycle/${z}/${x}/${y}.png"
         ];
         options = OpenLayers.Util.extend({ numZoomLevels: 19 }, options);
         var newArguments = [name, url, options];

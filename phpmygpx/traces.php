@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: traces.php 317 2010-07-21 23:46:09Z sebastian $
+* @version $Id: traces.php 356 2010-11-08 00:09:21Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -23,7 +23,7 @@ include("./libraries/html.classes.php");
 include("./libraries/GeoCalc.class.php");
 include("./traces.html.php");
 
-setlocale (LC_TIME, $cfg['config_locale']);
+setlocale(LC_TIME, $cfg['config_locale']);
 include("./languages/".get_lang($cfg['config_language']).".php");
 include("./head.html.php");
 
@@ -221,7 +221,7 @@ function viewGPX($page, $sort, $order, $limit) {
 		HTML_traces::viewGpxTableFooter();
 		
 		HTML::viewPagination($page, ceil($num_found/$limit), 
-			'traces.php?task=gpx'.$search_url);
+			'traces.php?task=gpx&s=$sort&o=$order'.$search_url);
 		if($option != "filter")
 			HTML::message($num_found ._DB_GPX_AVAILABLE);
 	}
@@ -420,11 +420,11 @@ function viewTrace($id, $page, $sort, $order, $limit) {
 		HTML_traces::viewTraceTableFooter();
 		
 		HTML::viewPagination($page, ceil($num_found/$limit), 
-			"traces.php?task=view&id=$id".$search_url);
+			"traces.php?task=view&id=$id&s=$sort&o=$order".$search_url);
 		if($option != "filter" && !$id) {
 			HTML::message($num_found ._DB_TRKPTS_AVAILABLE);
 		}else {
-			HTML::message("<a href='export.php?type=trackpoints$search_url'>". _TRC_EXPORT_AS_GPX ."</a>");
+			HTML::message("<a href='export.php?trkpt=-1$search_url'>". _TRC_EXPORT_AS_GPX ."</a>");
 		}
 	}
 	else

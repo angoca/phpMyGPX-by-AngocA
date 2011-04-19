@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: proxysimple.php 301 2010-05-27 15:45:45Z sebastian $
+* @version $Id: proxysimple.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008-2010 Lizard, Sebastian Klemm
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php

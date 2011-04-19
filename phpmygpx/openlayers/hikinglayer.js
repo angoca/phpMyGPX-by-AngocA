@@ -1,5 +1,5 @@
 /**
-* @version $Id: hikinglayer.js 283 2010-05-12 23:43:08Z sebastian $
+* @version $Id: hikinglayer.js 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) Sarah Hoffmann
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php

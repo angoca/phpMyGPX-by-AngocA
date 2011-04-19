@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: index.php 322 2010-07-27 14:37:30Z sebastian $
+* @version $Id: index.php 341 2010-08-22 20:59:49Z sebastian $
 * @package phpmygpx
 * @copyright Copyright (C) 2008 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php

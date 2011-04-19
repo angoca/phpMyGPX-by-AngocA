@@ -1,8 +1,8 @@
 <?php
 /**
-* @version $Id: photos.php 317 2010-07-21 23:46:09Z sebastian $
+* @version $Id: photos.php 356 2010-11-08 00:09:21Z sebastian $
 * @package phpmygpx
-* @copyright Copyright (C) 2008 Sebastian Klemm.
+* @copyright Copyright (C) 2009, 2010 Sebastian Klemm.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -219,7 +219,7 @@ function viewPhoto($id, $page, $sort, $order, $limit, $view) {
 		}
 		
 		HTML::viewPagination($page, ceil($num_found/$limit), 
-			"photos.php?task=view&view=$view&gpx_id=$id".$search_url);
+			"photos.php?task=view&view=$view&gpx_id=$id&s=$sort&o=$order".$search_url);
 		if(!$id)
 			HTML::message($num_found ._DB_PHOTOS_AVAILABLE);
 	}
