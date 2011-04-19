@@ -151,15 +151,6 @@ function fullPhoto($id) {
     if(mysql_num_rows($result)) {
     	while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			if(file_exists($cfg['photo_images_dir'] .$row['file'])) {
-				$query2 = "SELECT `id` FROM `${cfg['db_table_prefix']}pois` 
-							WHERE `id` < '$id' ORDER BY `id` DESC LIMIT 1; ";
-				$query3 = "SELECT `id` FROM `${cfg['db_table_prefix']}pois` 
-							WHERE `id` > '$id' ORDER BY `id` ASC LIMIT 1; ";
-				$result2 = db_query($query2);
-				$result3 = db_query($query3);
-				$prev = @mysql_result($result2, 0);
-				$next = @mysql_result($result3, 0);
-					
 				HTML_photos::fullPhoto($row);
 		    }else
 				HTML::message(_IMPORT_FILE_ERROR);
