@@ -243,7 +243,7 @@ class ImageFile {
 		if(sizeof($exif['GPS']['GPSLongitude']) == 3)
 			$lon += $this->exif_get_float($exif['GPS']['GPSLongitude'][2]) / 3600;
 		if($exif['GPS']['GPSLatitudeRef'] == 'W')
-			$lat *= -1; 
+			$lon *= -1; 
 		return $lon;
 	}
 	function exif_get_timestamp(&$exif) {
