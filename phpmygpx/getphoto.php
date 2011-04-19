@@ -44,7 +44,7 @@ if(!$type) {
 				// using existing thumbnail for maximum speed
 				if($im->load($cfg['photo_thumbs_dir'].$cfg['thumbs_prefix']. $row['file']))
 					$thumb = imagecreatefromjpeg($im->imageURI);
-			} elseif ($width <= $cfg['photo_low_resolution_width'] && $witdh >= 0) {
+			} elseif ($width <= $cfg['photo_low_resolution_width'] && $width >= 0) {
 				// using existing low resolution image
 				if($im->load($cfg['photo_images_dir'].$cfg['photo_low_resolution_prefix']. $row['file']))
 					$thumb = imagecreatefromjpeg($im->imageURI);
