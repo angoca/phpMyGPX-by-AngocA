@@ -52,9 +52,10 @@ class HTML_photos {
 		echo "</a>";
 	}
 
-	function viewFullPhoto($ph) {
+	function fullPhoto($ph) {
     	global $cfg;
-		echo "<img src='getphoto.php?id=${ph['id']}&x=-a' border=1 />\n";
+		echo "<img src='getphoto.php?id=${ph['id']}&x=-1' border=1 />\n";
+		echo "<img src='getphoto.php?id=${ph['id']}&x=400' border=1 />\n";
 	}
 
     function viewPhotoTableSimple($db_result) {
