@@ -82,7 +82,7 @@ function getData() {
 			if($row['description'])
 				$description = $row['description'];
 			else
-				$description = "Altitude: ${row['altitude']} m<br />${row['timestamp']}<br /><a href='photos/${row['file']}'><img src='photos/thumbs/${row['file']}' hspace=5 /></a>";
+				$description = "Altitude: ${row['altitude']} m<br />${row['timestamp']}<br /><a href='${cfg['photo_images_dir']}${row['file']}'><img src='${cfg['photo_thumbs_dir']}${cfg['thumbs_prefix']}${row['file']}' hspace=5 /></a>";
 			
 			// write table row for datalayer
 			echo ($row['latitude']/1000000)."\t".($row['longitude']/1000000).

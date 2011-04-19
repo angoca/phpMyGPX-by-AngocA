@@ -6,7 +6,6 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
-define('PHOTO_THUMBS_DIR', './photos/thumbs/');
 
 class ImageFile {
 	var $imageURI = NULL;
@@ -178,9 +177,13 @@ class ImageFile {
 			}
 			
 			// create and save thumbnail
-			$ok = @imagejpeg($this->rotate(
-				$this->createThumbnail($cfg['photo_thumb_width']), 'auto'),  
-				'./photos/thumbs/'.basename($this->imageURI), $cfg['photo_jpeg_quality']);
+			if (!$cfg['create_thumbail']) {
+			        $ok = TRUE;
+			} else {
+				$ok = @imagejpeg($this->rotate(
+					$this->createThumbnail($cfg['photo_thumb_width']), 'auto'),  
+					$cfg[photo_thumbs_dir].$cfg[thumbs_prefix].basename($this->imageURI), $cfg['photo_jpeg_quality']);
+			}
 			
 			if($ok) {
 				// insert poi into database

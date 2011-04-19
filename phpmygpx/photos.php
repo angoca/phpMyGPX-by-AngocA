@@ -9,8 +9,6 @@
 define( '_VALID_OSM', TRUE );
 define( '_PATH', './' );
 define( 'PHOTO_UPLOAD_DIR', './upload/');
-define( 'PHOTO_IMAGES_DIR', './photos/');
-define( 'PHOTO_THUMBS_DIR', './photos/thumbs/');
 $DEBUG = FALSE;
 if($DEBUG) error_reporting(E_ALL);
 
@@ -121,7 +119,7 @@ function details($id) {
 	if($DEBUG)	out($query, 'OUT_DEBUG');
     if(mysql_num_rows($result)) {
     	while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			if(file_exists(PHOTO_IMAGES_DIR .$row['file'])) {
+			if(file_exists($cfg['photo_images_dir'] .$row['file'])) {
 				$query2 = "SELECT `id` FROM `${cfg['db_table_prefix']}pois` 
 							WHERE `id` < '$id' ORDER BY `id` DESC LIMIT 1; ";
 				$query3 = "SELECT `id` FROM `${cfg['db_table_prefix']}pois` 

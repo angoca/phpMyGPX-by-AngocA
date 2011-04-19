@@ -58,7 +58,7 @@ class HTML_photos {
 			for($i=1; $i<=5; $i++) {
 				$row = mysql_fetch_array($db_result, MYSQL_ASSOC);
 				if($row) {
-					echo "<td><img src='".PHOTO_THUMBS_DIR. $row['file']."' /><br/>";
+					echo "<td><img src='".$cfg['photo_thumbs_dir'].$cfg['thumbs_prefix']. $row['file']."' /><br/>";
 					echo "<a href='?task=details&id=${row['id']}'>${row['file']}</a></td>";
 				}else
 					echo "<td>&nbsp;</td>";
@@ -92,7 +92,7 @@ class HTML_photos {
     	global $cfg;
     	$lat = $ph['latitude']/1000000;
     	$lon = $ph['longitude']/1000000;
-		echo "<tr><td><img src='".PHOTO_THUMBS_DIR."${ph['file']}' /></td>
+		echo "<tr><td><img src='".$cfg['photo_thumbs_dir'].$cfg['thumbs_prefix']."${ph['file']}' /></td>
 			<td><a href='?task=details&id=$ph[id]'>$ph[file]</a></td>
 			<td>". round($ph['size']/1024, 1) ." kB</td>
 			<td>$ph[timestamp]</td>

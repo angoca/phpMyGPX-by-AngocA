@@ -40,6 +40,8 @@ $cfg['check_updates']		= TRUE;
 $cfg['photo_features']      = TRUE;
 //! thumbnail width (pixel)
 $cfg['photo_thumb_width']	= 150;
+//! low resolution width (pixel)
+$cfg['photo_low_resolution_width']	= 900;
 //! JPEG compression/quality level [0...100]
 $cfg['photo_jpeg_quality']	= 80;
 //! minimal zoom to show photo icons on map
@@ -117,4 +119,18 @@ $cfg['dist_threshold'] 		= .5;
 $cfg['time_threshold'] 		= 600;
 //! moving average filter param for filtering altitude data
 $cfg['alt_data_filter_mva']	= 15;
+
+//! Directory where photos are stored.
+$cfg['photo_images_dir']	= 'photos/';
+//! Directory where thumbails are stored.
+$cfg['photo_thumbs_dir']	= 'photos/thumbs/';
+//! Prefix for thumbail files.
+$cfg['thumbs_prefix']		= '';
+//! Lower resolution photo prefix.
+$cfg['photo_low_resolution_prefix']	= '';
+
+
+//! Renerate thumbails.
+$cfg['create_thumbails']	= TRUE;
+
 ?>
