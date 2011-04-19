@@ -40,11 +40,11 @@ if(!$type) {
 	if(mysql_num_rows($result)) {
 		while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			// load image file
-			if(!$width || $width <= $cfg['photo_thumb_width']) {
+			if(!$width || ($width <= $cfg['photo_thumb_width'] && $width >= 0)) {
 				// using existing thumbnail for maximum speed
 				if($im->load($cfg['photo_thumbs_dir'].$cfg['thumbs_prefix']. $row['file']))
 					$thumb = imagecreatefromjpeg($im->imageURI);
-			} elseif ($width <= $cfg['photo_low_resolution_width']) {
+			} elseif ($width <= $cfg['photo_low_resolution_width'] && $witdh >= 0) {
 				// using existing low resolution image
 				if($im->load($cfg['photo_images_dir'].$cfg['photo_low_resolution_prefix']. $row['file']))
 					$thumb = imagecreatefromjpeg($im->imageURI);

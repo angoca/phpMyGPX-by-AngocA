@@ -47,7 +47,9 @@ class HTML_photos {
 		$map->embed();
 		echo "</td></tr></table><br/>\n";
 		
+		echo "<a href=\"getphoto.php?id=${ph['id']}&x=-1\">";
 		echo "<img src='getphoto.php?id=${ph['id']}&x=${cfg['chart_width']}' border=1 />\n";
+		 echo "</a>";
 	}
 
     function viewPhotoTableSimple($db_result) {
