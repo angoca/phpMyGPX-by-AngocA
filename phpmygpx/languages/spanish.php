@@ -144,7 +144,7 @@ DEFINE('_CMN_PDOP','PDOP');
 
 /** installation */
 DEFINE('_INST_OSM_SETUP','phpMyGPX-Instalación: ');
-DEFINE('_INST_WELCOME','Bienvenido');
+DEFINE('_INST_WELCOME','Bienvenida');
 DEFINE('_INST_CHECKS','Verificación del ambiente');
 DEFINE('_INST_CONFIG','Configuración');
 DEFINE('_INST_DB_INST','Instalación de la base de datos');
@@ -157,13 +157,13 @@ Si su base de datos es <b>compartida</b>, usted puede tener probablemente una so
 
 DEFINE('_INST_DB_ACCOUNT','Datos de la cuenta MySQL ');
 DEFINE('_INST_DB_HOST','Nombre del Host');
-DEFINE('_INST_DB_NAME','Nombre de la base de datoa');
+DEFINE('_INST_DB_NAME','Nombre de la base de datos');
 DEFINE('_INST_DB_TABLE_PREFIX','Prefijo para los nombres de tablas');
 DEFINE('_INST_DB_USER','Nombre de usuario');
 DEFINE('_INST_DB_PASSWORD','Contraseña');
 DEFINE('_INST_DB_ROOT_ACCOUNT','Datos de la cuenta Root MySQL ');
-DEFINE('_INST_DB_ROOT_ACCOUNT_MAN','Si usted tiene <b>acceso root access</b> a su base de datos, simplemente digite el nombre de usuario y constraseña en los campos siguientes, de otro modo deje dichos campos vacíos.<br>
-Para uso futuro, un usuario con menos privilegios será usado por razones de seguridad y este será creado por esta proceso de instalación.');
+DEFINE('_INST_DB_ROOT_ACCOUNT_MAN','Si usted tiene <b>acceso root</b> a su base de datos, simplemente digite el nombre de usuario y constraseña en los campos siguientes, de otro modo deje dichos campos vacíos.<br>
+Para uso futuro, un usuario con menos privilegios será usado por razones de seguridad, el cual será creado por el proceso de instalación.');
 DEFINE('_INST_DB_ROOT','Nombre de usuario Root');
 DEFINE('_INST_DB_ROOTPASS','Contraseña de Root');
 DEFINE('_INST_CFG_ADMIN_ACCESS','Acceso de administrador');
@@ -174,19 +174,19 @@ DEFINE('_INST_CFG_HOME_LOCATION','Lugar principal');
 DEFINE('_INST_CFG_HOME_LOCATION_MAN','Por favor seleccione el lugar principal sobre su mapa (realice zoom, haga drag and drop sobre la previsualización a la derecha).');
 
 DEFINE('_INST_LANGUAGE','Idioma');
-DEFINE('_INST_LANGUAGE_CHOOSE','Por favos seleccione su idioma preferido.');
+DEFINE('_INST_LANGUAGE_CHOOSE','Por favor seleccione su idioma preferido.');
 DEFINE('_INST_MODE','Modo de instalación');
 DEFINE('_INST_MODE_NEW','Instalación nueva');
 DEFINE('_INST_MODE_UPGR3','Actualización a la versión 0.3');
 DEFINE('_INST_MODE_UPGR_LATEST','Actualizar a la versión más recente');
 DEFINE('_INST_MODE_NEW_DESC',' (la base de datos y todas las tablas serán creadas, si ellas no existen)');
 DEFINE('_INST_MODE_UPGR3_DESC',' (tablas existente serán modificadas y las faltantes serán creadas)');
-DEFINE('_INST_PROG_CHECKS','Permison sobre directorio y la configuración del servidor van a ser revisadas...');
+DEFINE('_INST_PROG_CHECKS','Los permisos sobre directorios y la configuración del servidor van a ser revisadas...');
 DEFINE('_INST_PROG_PHOTOS_DISABLED','Características de fotos están deshabilitadas porque las extensiones EXIF y mbstring faltan.');
 DEFINE('_INST_PROG_CHECKED','Todos los tests fueron satisfactorios.');
 DEFINE('_INST_PROG_CONFIG_FOUND','Se encontró un antiguo archivo de configuración y sus valores vas a ser utilisados.');
 DEFINE('_INST_PROG_CONFIG_UPDATED','El archivo de configuración fue actualizado y guardado.');
-DEFINE('_INST_DB_CREATE_SETUP','Crea y configura la base de datos ');
+DEFINE('_INST_DB_CREATE_SETUP','Creacion y configuracion de la base de datos ');
 DEFINE('_INST_PROG_INST','Su base de datos MySQL y todas las tablas serán creadas...');
 DEFINE('_INST_DB_CONN_ERROR','La conexión a la base de datos a fallado. ');
 DEFINE('_INST_UPGR3_ADD_BOOKM_TBL','Tabla para marcadores ha sido creada.');
