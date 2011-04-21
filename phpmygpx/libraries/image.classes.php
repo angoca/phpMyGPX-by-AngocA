@@ -130,7 +130,10 @@ class ImageFile {
 			$lat = $this->exif_get_latitude($exif);
 			$lon = $this->exif_get_longitude($exif);
 			$ts = $this->exif_get_timestamp($exif);
-			
+			$imgDir = $this->exif_get_img_direction($exif);
+			$speed = $this->exif_get_speed($exif);
+			$movDir = $this->exif_get_mov_direction($exif);
+
 			$lat *= 1000000;
 			$lon *= 1000000;
 			$status['msg'] = _PHOTO_LOCATION_FROM_EXIF;
@@ -199,6 +202,9 @@ class ImageFile {
 		        	`latitude` = '$lat', 
 		        	`longitude` = '$lon',
 		        	`timestamp` = '$ts',
+		        	`image_dir` = '$imgDir',
+		        	`speed` = '$speed',
+		        	`move_dir` = '$movDir',
 		        	`file` = '".basename($this->imageURI)."', 
 		        	`size` = '".filesize($this->imageURI)."', 
 		        	`title` = '$title', 
@@ -262,6 +268,22 @@ class ImageFile {
 		$ts = substr_replace($ts, '-', 4, 1);
 		$ts = substr_replace($ts, '-', 7, 1);
 		return $ts;
+	}
+	// http://exif.org/Exif2-2.PDF
+	function exif_get_img_direction(&$exif) {
+		if(!isset($exif['GPS']['GPSImgDirection']))	return false; 
+		$dir = $this->exif_get_float($exif['GPS']['GPSImgDirection']);
+		return $dir;
+	}
+	function exif_get_speed(&$exif) {
+		if(!isset($exif['GPS']['GPSSpeed']))	return false; 
+		$dir = $this->exif_get_float($exif['GPS']['GPSSpeed']);
+		return $dir;
+	}
+	function exif_get_mov_direction(&$exif) {
+		if(!isset($exif['GPS']['GPSTrack']))	return false; 
+		$dir = $this->exif_get_float($exif['GPS']['GPSTrack']);
+		return $dir;
 	}
 }
 ?>
