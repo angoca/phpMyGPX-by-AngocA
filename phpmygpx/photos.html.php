@@ -20,7 +20,7 @@ class HTML_photos {
 		echo "<tr><td>"._CMN_DATE."</td><td>".strftime(_DATE_FORMAT_LC3, strtotime($ph['timestamp']))."</td></tr>";
 		echo "<tr><td>"._CMN_LAT." / "._CMN_LON."</td>
 			<td><a href='map.php?lat=$lat&lon=$lon&zoom=17&marker=1'>$lat / $lon</a></td></tr>";
-		echo "<tr><td>"._CMN_DIR."</td><td>$ph[imgDirection]&deg;</td></tr>";
+		echo "<tr><td>"._CMN_IMG_DIR."</td><td>$ph[imgDirection]&deg;</td></tr>";
 		echo "<tr><td>"._CMN_SPEED." - "._CMN_MOV_DIR."</td><td>$ph[speed] - $ph[movDirection]&deg;</td></tr>";
 		echo "<tr><td>"._CMN_ALT."</td><td>$ph[altitude] m</td></tr>
 			<tr><td>"._CMN_FILE_NAME."</td><td>$ph[file]</td></tr>

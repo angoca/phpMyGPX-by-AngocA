@@ -135,6 +135,8 @@ DEFINE('_CMN_ZOOM','Zoom level');
 DEFINE('_CMN_LAT','Latitude');
 DEFINE('_CMN_LON','Longitude');
 DEFINE('_CMN_ALT','Altitude');
+DEFINE('_CMN_IMG_DIR','Photo direction');
+DEFINE('_CMN_MOV_DIR','Movement direction');
 DEFINE('_CMN_COURSE','Course');
 DEFINE('_CMN_SPEED','Speed');
 DEFINE('_CMN_FIX','Sat Fix');
