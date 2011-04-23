@@ -248,7 +248,7 @@ class ImageFile {
 		$lat += $this->exif_get_float($exif['GPS']['GPSLatitude'][1]) / 60;
 		if(sizeof($exif['GPS']['GPSLatitude']) == 3)
 			$lat += $this->exif_get_float($exif['GPS']['GPSLatitude'][2]) / 3600;
-		if($exif['GPS']['GPSLatitudeRef'] == 'S')
+		if($exif['GPS']['GPSLatitudeRef'][0] == 'S')
 			$lat *= -1; 
 		return $lat;
 	}
@@ -258,7 +258,7 @@ class ImageFile {
 		$lon += $this->exif_get_float($exif['GPS']['GPSLongitude'][1]) / 60;
 		if(sizeof($exif['GPS']['GPSLongitude']) == 3)
 			$lon += $this->exif_get_float($exif['GPS']['GPSLongitude'][2]) / 3600;
-		if($exif['GPS']['GPSLatitudeRef'] == 'W')
+		if($exif['GPS']['GPSLatitudeRef'][0] == 'W')
 			$lon *= -1; 
 		return $lon;
 	}
