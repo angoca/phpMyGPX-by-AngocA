@@ -329,6 +329,9 @@ function get_accepted_lang() {
 		case 'nl':
 			$lang = 'dutch';
 			break;
+		case 'es':
+			$lang = 'spanish';
+			break;
 		default:
 			$lang = 'english';
 			break;
