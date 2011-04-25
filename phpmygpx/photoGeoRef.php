@@ -31,9 +31,6 @@ $task 	= getUrlParam('HTTP_GET', 'STRING', 'task');
 $f_x 	= getUrlParam('HTTP_GET', 'FLOAT', 'x') * 1000000;
 $f_y 	= getUrlParam('HTTP_GET', 'FLOAT', 'y') * 1000000;
 
-$f_minlon 	= getUrlParam('HTTP_GET', 'FLOAT', 'l') * 1000000;
-$f_maxlon 	= getUrlParam('HTTP_GET', 'FLOAT', 'r') * 1000000;
-
 // Connects to database
 $link = db_connect_h($cfg['db_host'], $cfg['db_name'], $cfg['db_user'],
 		$cfg['db_password']);
@@ -49,32 +46,33 @@ switch ($task) {
 }
 
 function getCloserPhoto($x, $y) {
-	global $DEBUG, $cfg;
+	global $DEBUG, $cfg, $dbqueries;
 	$query = $dbqueries['closerPhoto_1'].$x.$dbqueries['closerPhoto_2'].$y
 			.$dbqueries['closerPhoto_3'];
-	$result = db_query($query);
 	if($DEBUG)	out($query, 'OUT_DEBUG');
+	$result = db_query($query);
 	if(mysql_num_rows($result)) {
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		// Writes the description in JSON format.
 		$ret = "{";
 		$ret .= "  \"photo\": {";
-		$ret .= "    \"id\": ".$row['id'];
-		$ret .= "    \"altitude\": ".$row['altitude'];
-		$ret .= "    \"latitude\": ".($row['latitude']/1000000);
-		$ret .= "    \"longitude\": ".($row['longitude']/1000000);
-		$ret .= "    \"timestamp\": ".$row['timestamp'];
-		$ret .= "    \"image_dir\": ".$row['image_dir'];
-		$ret .= "    \"speed\": ".$row['speed'];
-		$ret .= "    \"move_dir\": ".$row['move_dir'];
-		$ret .= "    \"size\": ".$row['size'];
-		$ret .= "    \"file\": ".$row['file'];
+		$ret .= "    \"id\": \"".$row['id'].'", ';
+		$ret .= "    \"altitude\": \"".$row['altitude'].'", ';
+		$ret .= "    \"latitude\": \"".($row['latitude']/1000000).'", ';
+		$ret .= "    \"longitude\": \"".($row['longitude']/1000000).'", ';
+		$ret .= "    \"timestamp\": \"".$row['timestamp'].'", ';
+		$ret .= "    \"image_dir\": \"".$row['image_dir'].'", ';
+		$ret .= "    \"speed\": \"".$row['speed'].'", ';
+		$ret .= "    \"move_dir\": \"".$row['move_dir'].'", ';
+		$ret .= "    \"size\": \"".$row['size'].'", ';
+		$ret .= "    \"file\": \"".$row['file'].'", ';
 		$ret .= "  }";
 		$ret .= "}";
 		echo $ret;
 		
 		// Writes an hyperlink tothe photo.
-		echo "<a href='${cfg['photo_images_dir']}${row['file']}'>";
-		echo "<img src='${cfg['photo_thumbs_dir']}${cfg['thumbs_prefix']}${row['file']}' hspace=5 /></a>";
+		echo "<p><a href='${cfg['photo_images_dir']}${row['file']}'>";
+		echo "<img src='${cfg['photo_thumbs_dir']}${cfg['thumbs_prefix']}${row['file']}' hspace=5 /></a></p>";
 	}
 }
 
