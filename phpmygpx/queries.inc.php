@@ -11,14 +11,22 @@
 
 include("./config.inc.php");
 
+$dbqueries = array (
+
 //! Retreives the closer photo to a given set of coordinates.
-$dbqueries['closerPhoto_1'] = ''
-.'SELECT id, min(distance) '
-.'FROM ( '
-.'    SELECT id, distanceBtwPoints(';
-$dbqueries['closerPhoto_2'] = ',';
-$dbqueries['closerPhoto_3'] = ''
+'closerPhoto_1' => ''
+.'SELECT * '
+.'FROM '.$cfg['db_table_prefix'].'pois '
+.'INNER JOIN ('
+.'  SELECT id, min(distance) min '
+.'  FROM ( '
+.'    SELECT id, distanceBtwPoints(',
+'closerPhoto_2' => ',',
+'closerPhoto_3' => ''
 .', longitude, latitude) distance '
 .'    FROM '.$cfg['db_table_prefix'].'pois '
 .'    GROUP BY distance, id '
-.') distances';
+.'  ) distances'
+.') mindist ON pois.id = mindist.id',
+);
+?>
