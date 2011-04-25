@@ -21,9 +21,8 @@ $dbqueries = array (
 .'  SELECT id, min(distance) min '
 .'  FROM ( '
 .'    SELECT id, distanceBtwPoints(',
-'closerPhoto_2' => ',',
-'closerPhoto_3' => ''
-.', longitude, latitude) distance '
+'closerPhoto_2' => ', ',
+'closerPhoto_3' => ', longitude, latitude) distance '
 .'    FROM '.$cfg['db_table_prefix'].'pois '
 .'    GROUP BY distance, id '
 .'  ) distances'
