@@ -228,7 +228,7 @@ DEFINE('_MENU_PHOTO_DETAILS','Detalles de la foto');
 DEFINE('_MENU_PHOTO_UPL','Subir fotos');
 DEFINE('_MENU_PHOTO_BATCH_IMPORT','Importación de fotos en batch');
 DEFINE('_MENU_PHOTO_IMPORT','Importar fotos');
-DEFINE('_MENU_PHOTO_DELETE','Borrar fotos');
+DEFINE('_MENU_PHOTO_DELETE','Borrar foto');
 DEFINE('_MENU_VIEW','Ver');
 DEFINE('_MENU_UPL','Subir');
 DEFINE('_MENU_SEARCH','Buscar');
