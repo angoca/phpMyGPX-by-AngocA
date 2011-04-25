@@ -38,7 +38,7 @@ $f_pos_delta = getUrlParam('HTTP_GET', 'FLOAT', 'pos_delta');
 
 // Connects to database
 $link = db_connect_h($cfg['db_host'], $cfg['db_name'], $cfg['db_user'],
-        $cfg['db_password']);
+$cfg['db_password']);
 
 switch ($task) {
     case 'getClosestPhotos':
@@ -80,14 +80,52 @@ switch ($task) {
 
 function getClosestPhotos($x, $y, $limit) {
     global $DEBUG, $cfg, $dbqueries;
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$limit."\"}";
+    $query = $dbqueries['closestPhotos_1'].$x.$dbqueries['closestPhotos_2'].$y
+    .$dbqueries['closestPhotos_3'].$limit;
+    if ($DEBUG){
+        out($query, 'OUT_DEBUG');
+    }
+    $result = db_query($query);
+    $ret = "{";
+    $ret .= "  \"photos\": {";
+    if(mysql_num_rows($result)) {
+        while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+            if ($started){
+                $ret .= ", ";
+            }
+            $started = TRUE;
+            // Writes the description in JSON format.
+            $ret .= "    \"photo\": {";
+            $ret .= "      \"id\": \"".$row['id'].'", ';
+            $ret .= "      \"altitude\": \"".$row['altitude'].'", ';
+            $ret .= "      \"latitude\": \"".($row['latitude']/1000000).'", ';
+            $ret .= "      \"longitude\": \"".($row['longitude']/1000000).'", ';
+            $ret .= "      \"timestamp\": \"".$row['timestamp'].'", ';
+            $ret .= "      \"image_dir\": \"".$row['image_dir'].'", ';
+            $ret .= "      \"speed\": \"".$row['speed'].'", ';
+            $ret .= "      \"move_dir\": \"".$row['move_dir'].'", ';
+            $ret .= "      \"size\": \"".$row['size'].'", ';
+            $ret .= "      \"file\": \"".$row['file'];
+            $ret .= "    }";
+
+            // Writes an hyperlink to the photo.
+            $photos .= "<p><a href='${cfg['photo_images_dir']}${row['file']}'>";
+            $photos .= "<img src='${cfg['photo_thumbs_dir']}${cfg['thumbs_prefix']}${row['file']}' hspace=5 /></a></p>";
+        }
+    }
+    $ret .= "  }";
+    $ret .= "}";
+    echo $ret;
+    echo $photos;
 }
 
 function getClosestPhoto($x, $y) {
     global $DEBUG, $cfg, $dbqueries;
     $query = $dbqueries['closestPhoto_1'].$x.$dbqueries['closestPhoto_2'].$y
-            .$dbqueries['closestPhoto_3'];
-    if($DEBUG)	out($query, 'OUT_DEBUG');
+    .$dbqueries['closestPhoto_3'];
+    if($DEBUG) {
+        out($query, 'OUT_DEBUG');
+    }
     $result = db_query($query);
     if(mysql_num_rows($result)) {
         $row = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -103,12 +141,12 @@ function getClosestPhoto($x, $y) {
         $ret .= "    \"speed\": \"".$row['speed'].'", ';
         $ret .= "    \"move_dir\": \"".$row['move_dir'].'", ';
         $ret .= "    \"size\": \"".$row['size'].'", ';
-        $ret .= "    \"file\": \"".$row['file'].'", ';
+        $ret .= "    \"file\": \"".$row['file'];
         $ret .= "  }";
         $ret .= "}";
         echo $ret;
 
-        // Writes an hyperlink tothe photo.
+        // Writes an hyperlink to the photo.
         echo "<p><a href='${cfg['photo_images_dir']}${row['file']}'>";
         echo "<img src='${cfg['photo_thumbs_dir']}${cfg['thumbs_prefix']}${row['file']}' hspace=5 /></a></p>";
     } else {
