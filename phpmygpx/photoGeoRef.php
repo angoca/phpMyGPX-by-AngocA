@@ -82,11 +82,6 @@ switch ($task) {
         break;
 }
 
-// TODO Function to create JSON for photo
-// TODO validate the given values
-// TODO Documentation
-// TODO Crear y lanzar excepciones
-
 /**
  *
  * Thrown when the given value for a longitude or latitude is not valid.
@@ -110,7 +105,8 @@ class InvalidDegreeException extends Exception {}
  * @throws InvalidLongitudeException If the value is not valid.
  */
 function validateCoordinate($value, $type){
-    if ((! is_numeric($value)) || ($value < -180) || ($value > 180)) {
+    if ((! is_numeric($value)) || ($value < -180000000)
+    || ($value > 180000000)) {
         throw new InvalidCoordinateException('The value \''.$value.'\' is an '
         .'invalid format for a '.$type);
     }
@@ -160,7 +156,7 @@ function photoJSON($row) {
     $ret .= "  \"speed\": \"".$row['speed'].'", ';
     $ret .= "  \"move_dir\": \"".$row['move_dir'].'", ';
     $ret .= "  \"size\": \"".$row['size'].'", ';
-    $ret .= "  \"file\": \"".$row['file'];
+    $ret .= "  \"file\": \"".$row['file'].'"';
     $ret .= "}";
     return $ret;
 }
@@ -270,8 +266,6 @@ function getClosestPhotosWithOrientation($x, $y, $img_dir, $img_delta, $limit) {
     $query = getQueryClosestPhotosWithOrientation($x, $y, $img_dir, $img_delta,
     $limit);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$img_dir."-".$img_delta."-"
-    .$limit."\"}";
 }
 
 /**
@@ -292,7 +286,6 @@ function getClosestPhotoWithOrientation($x, $y, $img_dir, $img_delta) {
 
     $query = getQueryClosestPhotoWithOrientation($x, $y, $img_dir, $img_delta);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$img_dir."-".$img_delta."\"}";
 }
 
 /**
@@ -318,8 +311,6 @@ function getClosestPhotosOverDirection($x, $y, $pos_dir, $pos_delta, $limit) {
     $query = getQueryClosestPhotosOverDirection($x, $y, $pos_dir, $pos_delta,
     $limit);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$pos_dir."-".$pos_delta."-"
-    .$limit."\"}";
 }
 
 /**
@@ -341,7 +332,6 @@ function getClosestPhotoOverDirection($x, $y, $pos_dir, $pos_delta) {
 
     $query = getQueryClosestPhotoOverDirection($x, $y, $pos_dir, $pos_delta);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$pos_dir."-".$pos_delta."\"}";
 }
 
 /**
@@ -373,8 +363,6 @@ $pos_delta, $img_dir, $img_delta, $limit) {
     $query = getQueryClosestPhotosWithOrientationOverDirection($x, $y, $pos_dir,
     $pos_delta, $img_dir, $img_delta, $limit);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$pos_dir."-".$pos_delta."-"
-    .$img_dir."-".$img_delta."-".$limit."\"}";
 }
 
 /**
@@ -403,8 +391,6 @@ $pos_delta, $img_dir, $img_delta) {
     $query = getQueryClosestPhotoWithOrientationOverDirection($x, $y, $pos_dir,
     $pos_delta, $img_dir, $img_delta);
     processDBQuery($query);
-    echo "{\"Note\": \"To be done ".$x."-".$y."-".$pos_dir."-".$pos_delta."-"
-    .$img_dir."-".$img_delta."\"}";
 }
 
 if($cfg['show_exec_time']) {
