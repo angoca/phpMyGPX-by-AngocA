@@ -5,10 +5,6 @@
 <title>Map Comparator v1.1</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="description" content="TODO" />
-<link rel="alternate" type="application/rss+xml"
-    title="gmapify.frlatest news" href="../../news_english.rss" />
-<link rel="alternate" type="application/rss+xml"
-    title="gmapify.frderni&#232;res nouvelles" href="../../news_french.rss" />
 <link rel="shortcut icon" type="image/png"
     href="http://shared.gmapify.fr/images/favicon.png" />
 
@@ -57,13 +53,9 @@ img {
 </style>
 </head>
 <body style="font-family: Arial, sans serif;" onunload="GUnload()">
-    <p>
-        Designed with <a href="http://mapstraction.com/"><img
-            src="images/logo_mapstraction.png" alt="mapstraction" width="65px"
-            height="30px" style="vertical-align: middle" /> </a>. Click on a map
-        to set it as reference before zoom in/out or pan. Only Google Maps and
-        OpenStreetMap can currently be reference.
-    </p>
+    <p>Designed with Mapstraction. Click on a map to set it as reference
+        before zoom in/out or pan. Only Google Maps and OpenStreetMap can
+        currently be reference.</p>
 
     <table>
         <tr>
@@ -102,7 +94,7 @@ img {
 
 <!--GOOGLE MAP API-->
 <script type="text/javascript"
-    src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAsqOJguRopHw3Bto4-I7GMxSYMwvWjL9BZ6ADj0UlYdnYFwtI8xTCNf2li8du9zVVSkMBLw44EgymNA">
+    src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAADJbfhH4n1uSXICGVGr5shRTAWSVwt_T5xlaLGDLe4TUb_efhmBSbrcCC-UT9JDE20_8w67pZvwDHig">
     </script>
 
 <!--MICROSOFT MAP API-->
@@ -135,7 +127,7 @@ img {
                 zoom: 'small',
                 map_type: true
             });
-            maps[iLoopMaps].mapstraction.setCenterAndZoom(new LatLonPoint(48.86, 2.34), 10);
+            maps[iLoopMaps].mapstraction.setCenterAndZoom(new LatLonPoint(4.59, -7.07), 10);
                if( ("google" == maps[iLoopMaps].mapstraction.api) || ("openstreetmap" == maps[iLoopMaps].mapstraction.api) )
                 maps[iLoopMaps].mapstraction.addEventListener('click',fInitSynchronize, maps[iLoopMaps].mapstraction);
         };
@@ -145,6 +137,7 @@ img {
                 if (mainProvider == maps[iLoopMaps].provider)
                     return iLoopMaps;
         };//fFindMap
+
         function fInitSynchronize(){
             if (mainProvider != this.api) {
                 fResetEvent();
@@ -169,6 +162,7 @@ img {
                 maps[mapIndex].mapstraction.addEventListener('moveend',fSynchronize);
             }
         };//fInitSynchronize
+
         function fResetEvent(){
             if (null != mainProvider) {
                 var mapIndex = fFindMapIndex();
@@ -193,6 +187,7 @@ img {
                 }
             }
         };//fResetEvent
+
         function fSynchronize(){
             var zoom = null;
             var center = null;
@@ -206,5 +201,6 @@ img {
                 if ((mainProvider != maps[iLoopMaps].provider) && (null != maps[iLoopMaps].mapstraction))
                     maps[iLoopMaps].mapstraction.setCenterAndZoom(center, zoom);
         };//fSynchronize
+
     </script>
 </html>
