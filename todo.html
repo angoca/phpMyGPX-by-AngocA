@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ColGeoFotos - TODOs</title>
+</head>
+<body>
+    <p>A continuación se presenta una lista de tareas por hacer.</p>
+    <ul>
+        <li>Mejorar los colores de la página - parte phpMyGPX</li>
+        <li>Crear un script externo que procese las fotos, tomando los
+            valores del encabezo exif (por medio de la herramienta Linux
+            exiftool) relativos a GPS y posteriormente insertar estos valores en
+            la base de datos, tabla 'pois'. Este script tendría que validad fotos
+            en diferentes directorios-subdirectorio, cosa que permite phpgraphy,
+            pero que en el uso normal de phpMyGPX no funciona (Posiblemente
+            funciona, porque en la base de datos se escribe el nombre del archivo
+            de las fotos, y se podría incluir con este el path absoluto dentro
+            del servidor Web).</li>
+        <li>Asociar el usuario que sube la foto en el encabezado exif.
+            Esto puede ser adicional al punto anterior.</li>
+        <li>Incluir la licencia CreativeCommons Shared-Alike en en
+            encabezado Exif. También puede ser adicional al punto anterior.</li>
+        <li>Crear una aplicación en Facebook que permita observar las
+            fotos sobre un mapa OSM. Esta aplicación hace llamados por medio del
+            método GET a la aplicación phpMyGPX para que le devuelva el conjunto
+            de fotos que cumplen con las condiciones dadas.</li>
+        <li>Terminar los criterios de búsqueda de fotos. El caso 1 sobre
+            ángulo ya está. Falta son casos sobre una línea recta de un cierto
+            ancho (como para devolver las fotos que están sobre la misma calle),
+            y el caso de devolver las fotos que están apuntando a un sitio dado
+            (devolver todas las fotos que apuntan a la torre Colpatria).</li>
+        <li>Relacionar el proceso de generación de Thumbails y low
+            resolution de phpgraphy, con el procesamiento de encabezados EXIF.</li>
+        <li>Procesar las fotos por medio de un Cron, de manera que sea
+            periódicamente sin necesidad de llamar el proceso de Batch de
+            phpgraphy</li>
+        <li>Tener una opción que valide que la foto está en la buena
+            ubicación GPS y con la buena orientación. Esta validación la haría
+            otro usuario, tal como lo hace OpenStreetView, que es validación por
+            pares. Esta información no se guardaría en la foto, sino en la base
+            de datos, en donde se registraría quién la validó y cuándo. Esto
+            ayuda a ofrecer la opción de solo consultar/devolver fotos que han
+            sido validadas.</li>
+        <li>Crear un script de backup del directorio de las fotos
+            (/pictures en el servidor Web) y hacer un backup de la base de datos
+            de la información de las fotos. Esto se programaría con un Cron, y el
+            resultado debería externalizarce.</li>
+        <li>Poder escoger un tipo de licencia CreativeCommons para las
+            fotos. Algunos usuario no les importaría que solo fuera CC-By
+            (reconocimiento), u otros no les gustaría trabajos derivados ni
+            comerciales. Inclusive, otros usuarios podrían sertirse más a gusto
+            con otro tipo de licensias en sus fotos.</li>
+        <li>Mostrar las fotos en un mapa generado por Mapstractor, para
+            así poder comparar con los mapas de las competencias. Esto evitaría
+            usar phpMyGpx</li>
+        <li>Contactar las personas que han subido muchas fotos de
+            Colombia en Panoramio, y proponerles este portal, para que suban las
+            fotos aquí.</li>
+        <li>Definir un nombre más serio para el proyecto. ColGeoFotos es
+            una salida rápida para esto. Me gustaría un nombre propio nuestro,
+            quiero decir, algo relacionado con nuestras raíces, podría ser una
+            palabra en lengua indígena, o una montaña, rio, etc. No un nombre en
+            inglés.</li>
+        <li>Incluir en las fotos el encabezado RDF</li>
+        <li>Adicional a la base de datos de fotos con ubicación GPS y
+            orientación, se debería tener una base de datos de direcciones
+            residenciales. Google no es preciso al buscar una dirección en
+            Bogotá.</li>
+        <li>Hacer campañas ante grupos masivos de personas, como
+            colegios, y universidades, donde se les pida tomar una foto de la
+            fachada de su casa, subirla a la página, indicando la dirección
+            actual (y anteriores si es el caso). Esto ayudaría a aumentar la
+            cantidad de fotos referenciadas más rápidamente.</li>
+        <li>Crear un tutorial de cómo poder indicar las coordenadas GPS
+            en una foto, desde una cámara normal (sin GPS integrado), y cuando no
+            se tiene aparato GPS. Esto quiere decir, que se quiere incluir la
+            parte GPS en una foto, ubicándola en el mapa, y después modificando
+            el encabezado EXIF. Un tutorial para manejar la herramienta exiftool
+            en Windows es esta <a
+            href="http://freeweb.siol.net/hrastni3/foto/exif/faq_gui.htm">http://freeweb.siol.net/hrastni3/foto/exif/faq_gui.htm</a>
+        </li>
+        <li>Crear usuario para acceso público de solo lectura a la base
+            de datos. Por el momento solo sería a la tabla osm.pois.</li>
+        <li>Crear una página que le ayude a ubicar unas coordenadas dadas
+            en un mapa OSM. Actualmente, en GoogleMaps, uno le da unas
+            coordenadas GPS y le muestra la "chicheta" en el mapa. Esto debe ser
+            de dos maneras: 1) dar las coordenadas y mostrar exactamente dónde
+            es. 2) Hacer click en el mouse, y mostrar a qué coordenadas
+            corresponde.</li>
+    </ul>
+
+</body>
+</html>
