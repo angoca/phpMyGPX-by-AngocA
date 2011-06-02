@@ -1,4 +1,2 @@
-This is s modified version oh phpMyGPX that permits to show photos shared with
-other applications in the web server.
-
-In the root directory, it includes some pages for my personal photo portal.
+This was a branch of the phpmygpx project, but now it is just only the
+way to deploy an instance of this project for Colombian photos.
