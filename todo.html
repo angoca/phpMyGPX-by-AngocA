@@ -69,7 +69,6 @@
   </ul>
   <h3>phpmygpx - basicas</h3>
   <ul>
-    <li>Mejorar los colores de la página - la parte phpMyGPX</li>
     <li>Asociar el usuario que sube la foto en el encabezado exif en
       el momento de la carga de la foto.</li>
     <li>Permitir escoger la licencia CreativeCommons de la foto e
@@ -80,27 +79,48 @@
       con otro tipo de licencias en sus fotos.</li>
     <li><b>DONE</b>: Corregir el problema de visualización con
       Internet Explorer. Este problema es de phpMyGPX.</li>
-    <li>Permitir esconder la funcionalidad de GPX (waypoints,
-      trackpoints) tal como sepuede esconder la de fotos, esto permite que
-      sea un portal de solo fotos.</li>
-    <li>La opción de bookmark debería ser mostrada solo cuando el
-      usuario está loggeado.</li>
+    <li><b>Implemented</b>: Permitir esconder la funcionalidad de GPX
+      (waypoints, trackpoints) tal como sepuede esconder la de fotos, esto
+      permite que sea un portal de solo fotos.</li>
+    <li><b>Implemented</b>: La opción de bookmark debería ser
+      mostrada solo cuando el usuario está loggeado.</li>
     <li>Crear la página de buscar fotos, lo cual llamaría el API que
       estoy haciendo de consulta de fotos por posición.</li>
     <li>Terminar el criterio 2 de búsqueda de fotos: fotos sobre unas
-      líneas paralelas como una avenida.</li>
+      líneas paralelas como una avenida (una línea recta de un cierto ancho
+      (como para devolver las fotos que están sobre la misma calle).</li>
     <li>Terminar el criterio 3 de búsqueda de fotos: Fotos apuntando
-      a un punto dado desde cualquier dirección.</li>
+      a un punto dado desde cualquier dirección (las fotos que están
+      apuntando a un sitio dado (devolver todas las fotos que apuntan a la
+      torre Colpatria)).</li>
     <li>Cuando se hace loggin se debería volver a la página donde
       estaba y no a otra página que confunde la navegación.</li>
-    <li>Mostrar los meridianos y paralelos en un mapa.</li>
+    <li>Tener una opción para mostrar los meridianos y paralelos en
+      un mapa.</li>
     <li>Poder hacer click sobre el map y mostrar la distancia hacia
-      otro punto.</li>
+      otro punto. Esto debe ser posible con GeoCalc-PHP.</li>
     <li>Poder importar fotos ubicadas en una estructura de
-      directorios y no solo en /upload.</li>
+      directorios y no solo en el directorio /upload.</li>
     <li>Externalize all the SQL sentences from the code to an object
       that creates the queries with the given parameters.</li>
-
+    <li>Mejorar los colores de la página - la parte phpMyGPX. Cambiar
+      colores de la página, más atractivos, inclusive meter Web 2.0 o al
+      menos un CSS más detallado.</li>
+    <li>Crear un favicon. Inclusive basado en el logo que se haga.</li>
+    <li>Cambiar el ícono que se muestra en los detalles de la foto,
+      por un ícono de cámara que si tiene la orientación, la muestra.</li>
+    <li>El mapa de la versión que muestra las fotos direccionadas
+      demora mucho en cargar.</li>
+    <li>El nombre en Head&gt;Title debería cambiar entre las
+      diferentes páginas. Actualmente es el mismo, y en el historial de
+      páginas visitadas no se ve la diferencia head.html.php.</li>
+    <li>Las fotos que se muestra en el mapa son las primeras que
+      devuelve la base de datos, por lo que siempre se muestran las mismas.
+      Se debería devolver un conjunto aleatorio diferente cada vez, para
+      poder mostrar otras fotos diferentes a las primeras.</li>
+    <li>El tamaño del mapa que se muestra debería ser dinámica de
+      acuerdo al tamaño de la ventana del navegador y no un tamaño fijo.
+      OSM muestra el mapa al máximo posible.</li>
   </ul>
   <h3>phpmygpx - extensiones</h3>
   <ul>
@@ -140,11 +160,6 @@
       fotos sobre un mapa OSM. Esta aplicación hace llamados por medio del
       método GET a la aplicación phpMyGPX para que le devuelva el conjunto
       de fotos que cumplen con las condiciones dadas.</li>
-    <li>Terminar los criterios de búsqueda de fotos. El caso 1 sobre
-      ángulo ya está. Falta son casos sobre una línea recta de un cierto
-      ancho (como para devolver las fotos que están sobre la misma calle),
-      y el caso de devolver las fotos que están apuntando a un sitio dado
-      (devolver todas las fotos que apuntan a la torre Colpatria).</li>
   </ul>
 
 </body>
