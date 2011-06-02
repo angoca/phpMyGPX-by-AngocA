@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ColGeoFotos - Nueva instalación</title>
+</head>
+<body>
+  <h1>Instalar una nueva instancia de la aplicación</h1>
+  <p>A continuación te mostramos los pasos para montar una nueva
+    instancia de este proyecto, para que puedas hospedar fotos en tu
+    propio servidor Web.</p>
+  <h2>Prerequisitos:</h2>
+  <p>Estos componentes los tienes que tener instalados para poder
+    empezar a trabajar:</p>
+  <ul>
+    <li>Computador con sistema operativo Linux o Windows u otro que
+      soporte Apache y PHP. Para este ejemplo y como está actualmente
+      instalado está bajo Linux Ubuntu 12.</li>
+    <li>Como ya viste, Apache HTTPD es necesario. Si estás en Ubunut
+      lo puedes instalar por medio de <code>sudo apt-get install
+        apache</code>. Si estás en Windows o en otra plataforma puedes visitar la<a
+      href="http://httpd.apache.org">página de Apache HTTPD</a> para más
+      información. Prueba que el servidor Web funciona viendo la página
+      localhost desde tu browser. No se ha probado este portal bajo otros
+      ambientes como IIS o Jetty, pero si lo haces nos comentas cómo te
+      fue.</li>
+    <li>Otro elemento importante es PHP, el cual también se puede
+      instalar por medio de apt-get en Ubuntu, o ir a la <a
+      href="http://www.php.net/">página princial de PHP</a> y seguir las
+      instrucciones. Prueba con el archivo que contiene la función
+      phpinfo() para que estés seguro que funciona php bajo Apache.</li>
+    <li>Como todas las aplicaciones LAMP, se necesita de una base de
+      datos, y en este caso vamos a usar MySQL. Asegúramte que está
+      instalada en tu máquina, o sino visita la <a href="http://mysql.com/">página
+        de MySQL</a>. Prueba que te puedes conectar con un usuario que tenga
+      todos los privilegios.</li>
+    <li>Hasta el momento la aplicación que cumple con los requisitos
+      y que es la más modular y flexible es <a
+      href="http://phpmygpx.tuxfamily.org">phpMyGPX</a>. Por el momento
+      solo copia la aplicación en los documentos a publicar del servidor
+      web.</li>
+  </ul>
+  <h2>Configuración</h2>
+  <p>Teniendo la plataforma LAMP instalada y corriendo, ahora es
+    necesario configurar la aplicación para que funcione. Para esto es
+    necesario:</p>
+  <ul>
+    <li>Crear un usuario para la conexión a MySQL.</li>
+    <li>Cargar la aplicación desde tu navegador Web (Firefox por
+      ejemplo). Para esto será necesario llamar una dirección como: <a
+      href="http://localhost/phpmygpx">http://localhost/phpmygpx</a>. El
+      nombre phpmygpx depende de cómo lo hayas copiado en tu servidor web.
+      Si el nombre que le diste al directorio para la aplicación es
+      diferente, tendrás que cambiar la dirección en el servidor Web.</li>
+    <li>Seguir los pasos del asistente de instalación de la
+      aplicacion. Los pasos son sencillos, y tienes que asegurarte que
+      haces lo que se te dice. Permisos sobre directorios es por medio de
+      "sudo chmod 666" para que cualquiera pueda escribir sobre los
+      directorio que ahí te indican. El usuario root de la base de datos es
+      el que tiene control de todo, y cuando instalaste mysql tuviste que
+      dar las coordenadas de este. Para las coordenadas de Colombia, estas
+      son cercanas a 4 Norta, 74 Oeste (-74). El zoom que te recomieno es
+      10, ya que permite ver el mapa de Colombia más cercanamente.</li>
+  </ul>
+  <h3>Configuración phpmygpx</h3>
+  <p>Cuando hayas terminado de instalar phpmygpx, ve al directorio
+    donde lo instalaste y edita el archivo config.inc.php. Recuerda
+    editarlo con los privilegios necesarios para modificarlo.
+  <ul>
+    <li>Abre el archivo config.inc.php</li>
+    <li>Busca la opción gpx_features y cambiala por false. Esto
+      evitará mostrar las opciones de GPX que no se usan si solo vas a
+      subir fotos.</li>
+    <li>Busca la opción result_datalayer_limit y aumentala a 500 o
+      1000, esto permitirá dicha cantidad de fotos en el mapa. Esto es úlil
+      si tienes muchas fotos tomadas muy cerca las unas a las otras.</li>
+    <li>La opción result_table_limit permite limitar por defecto la
+      cantidad de fotos a mostrar por página cuando ves la lista de fotos
+      que existen en el portal.</li>
+    <li>El tamaño del mapa por defecto puede ser pequeño para las
+      pantallas y resoluciones actuales, por lo tanto puedes modificar
+      map_height, page_width y chart_width y ver cuál es la que más se
+      acomoda a tus necesidades. Aquí se usa 700, 1000 y 1100
+      respectivamente.</li>
+    <li>Abre el archivo languages/spanish.php si escogiste español
+      como idioma por defecto en el momento de instalación, sino el idioma
+      que hayas escogido.</li>
+    <li>Busca la propiedad _APP_NAME y cámbiala el nombre de la
+      aplicación phpmygpx para que quede personlizada. Este nombre que le
+      pongas será el nombre de tu portal. Esto se mostrará en todas las
+      páginas del portal.</li>
+    <li>Busca la propiedad _HTML_TITLE y cámbiala con el nombre de la
+      aplicación más una corta Frase. Esto se mostrará en la barra de
+      título del navegador Web y en el historial de páginas visitadas.</li>
+  </ul>
+  <h2>Uso</h2>
+  <p>Listo, ya tienes el portal de fotos montado, ahora solo
+    necesitas subir fotos a tu servidor Web, y copiarlas en el directorio
+    upload que se encuentra dentro de la estructura de directorios de la
+    aplicación phpmygpx. Una vez las fotos ahí, puedes ir a la página en
+    tu navegador Web e importarlas. Si las fotos son grandes y muchas, el
+    proceso puede tomar mucho tiempo. Sin embargo puedes abrir otra
+    ventana y ver las fotos que ya analizó.
+</body>
+</html>
