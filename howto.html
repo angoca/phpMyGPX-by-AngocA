@@ -5,82 +5,82 @@
 <title>ColGeoFotos - Como funciona</title>
 </head>
 <body>
-    <p>Aquí te presentamos cómo funciona este portal de fotos
-        georeferenciadas de Bogota.</p>
-    <p>Cuando tomas una foto, tu te encuentras en una posición sobre el
-        planeta tierra (en la gran mayoría de los casos), y cualquier posición
-        sobre esta va a estar representado por unas coordenas de latitud y
-        longitud.</p>
-    <p>Cuando quieres posicionar una foto, o cualquier elemento sobre
-        un mapa, necesitas conocer estas coordenadas. Como estas coordenadas
-        son muy precisas con respecto al tamaño de la tierra, necesitas de un
-        aparato GPS que te devuelve esas coordenadas. Recientemente, algunas
-        cámaras comienzas a incorporar dicho aparato dentro de ellas mismas,
-        para que quede registrada la posición geográfica en la foto.</p>
-    <p>Si tu cámara no tiene GPS integrado, pero posees uno, puedes
-        hacer la sincronización de tiempo para saber exactamente dónde tomaste
-        la foto.</p>
-    <p>Más aun, si no tienes GPS, sino solo una cámara fotográfica,
-        puedes intentar conseguir las coordenadas GPS insertándolas en un mapa
-        como GoogleMaps.</p>
-    <p>Una vez, que se tienen fotos con información sobre la posición
-        donde se tomó, esta se puede mostrar automáticamente sobre un mapa, ya
-        que el computador va a leer las coordenadas de la foto, y la va a
-        ubicar sobre un mapa.</p>
-    <p>Como aquí estamos buscando una libertad de visualización y uso
-        de fotos y mapas, aquí usamos OpenStreetMap para ubicar tus fotos. Lo
-        que ahora puedes hacer, es compartir tus fotos con las otras personas
-        para que las puedan ver. Las fotos que están en este portal están
-        disponibles para todos. Es tu responsabilidad tener los derechos
-        intelectuales sobre las fotos que publiques, esto quiere decir, que tu
-        hayas tomado la foto. Aquí no queremo fotos de otras personas o
-        empresas, ya que no se tienen los derechos sobre estas.</p>
-    <p>Si la foto contiene más información, fuera de las coordenadas de
-        la foto, como la dirección/orientación (por ejemplo 43º nor-este)
-        hacia donde tomaste la foto, estas podrán ser de mayor provecho para
-        los servicios que aquí ofrecemos.</p>
-    <p>En el párrafo anterior nos referimos a servicios, y es que este
-        portal no solo se limita a mostrar las fotos que se han subido en un
-        mapa, sino que permite consultar fotos a partir de un punto dado. Esto
-        permite que las fotos sean consultadas desde otras aplicaciones, por
-        ejemplo desde una aplicación en Facebook, o un periódico digital, o
-        inclusive, desde una aplicación en tu teléfono celular. Las
-        posibilidades son infinitas, pero necesitas de todos para ayudar a
-        alimentar este portal.</p>
-    <p>Actualmente, este portal se encuentra hospedado en un viejo
-        computador en la casa de la persona que creó el proyecto, sin embargo,
-        buscamos que pueda tener una infraestructura más estable, y estamos
-        buscando apoyo.</p>
-    <p>
-        El portal está en construcción, y faltan muchas <a href="todo.html">cosas
-            por hacer</a>, pero si están interesado, y quieres apoyar, no dudes en <a
-            href="mailto:angoca@gmail.com">contactarnos</a>.
-    </p>
-    <h2>Detalles técnicos</h2>
-    <p>Primeramente, las fotos eran subidas por medio de phpMyGPX,
-        donde las fotos eran analizadas, y su encabezado EXIF era leído, para
-        extraer la información de coordenadas GPS, pero esta aplicación solo
-        permite un directorio para subir las fotos, un solo usuario que suba
-        fotos, y había problemas en la generación y visualización de
-        thumbails. Sin embargo, suplía las necesidades de ubicar las fotos en
-        un mapa OSM que es lo que se buscaba.</p>
-    <p>Entonces, para poder hacerlo multiusuario, multidirectorio, se
-        buscó otra aplicación que permita subir fotos vía web, la cual además
-        creaba los thumbail, y una foto de baja resolución, lo cual es
-        práctico si se usan fotos de 10 MegaPíxeles.</p>
-    <p>El problema que esto genera es que las fotos son independientes
-        en las dos aplicaciones, por lo que comencé a hacer scripts en bash
-        para crear links simbólicos, y poder hacer el procesamiento de las
-        mismas fotos en ambas aplicaciones, y solo tenerlas una sola en el
-        servidos web.</p>
-    <p>Durante esta labor encontré varios problemas con phpMyGPX y creé
-        un branch en github para mejorarlo y adaptarlo a lo que estaba
-        buscando. Es así como lo traduje al español, corregí lo de los
-        thumbails, extraje más información del encabezado EXIF, entre otros.</p>
-    <p>Ahora, toca definir unas cosas para que el procesamiento de las
-        fotos sea automático, y se sincronicen los dos sistemas. Es más, sin
-        tener que hacer dos procesamientos, sino que se modifique la base de
-        datos de phpMyGPX directamente con los valores que se encuentra en los
-        encabezados EXIF de las fotos.</p>
+  <p>Aquí te presentamos cómo funciona este portal de fotos
+    georeferenciadas de Bogota.</p>
+  <p>Cuando tomas una foto, tu te encuentras en una posición sobre el
+    planeta tierra (en la gran mayoría de los casos), y cualquier posición
+    sobre esta va a estar representado por unas coordenas de latitud y
+    longitud.</p>
+  <p>Cuando quieres posicionar una foto, o cualquier elemento sobre
+    un mapa, necesitas conocer estas coordenadas. Como estas coordenadas
+    son muy precisas con respecto al tamaño de la tierra, necesitas de un
+    aparato GPS que te devuelve esas coordenadas. Recientemente, algunas
+    cámaras comienzas a incorporar dicho aparato dentro de ellas mismas,
+    para que quede registrada la posición geográfica en la foto.</p>
+  <p>Si tu cámara no tiene GPS integrado, pero posees uno, puedes
+    hacer la sincronización de tiempo para saber exactamente dónde tomaste
+    la foto.</p>
+  <p>Más aun, si no tienes GPS, sino solo una cámara fotográfica,
+    puedes intentar conseguir las coordenadas GPS insertándolas en un mapa
+    como GoogleMaps.</p>
+  <p>Una vez, que se tienen fotos con información sobre la posición
+    donde se tomó, esta se puede mostrar automáticamente sobre un mapa, ya
+    que el computador va a leer las coordenadas de la foto, y la va a
+    ubicar sobre un mapa.</p>
+  <p>Como aquí estamos buscando una libertad de visualización y uso
+    de fotos y mapas, aquí usamos OpenStreetMap para ubicar tus fotos. Lo
+    que ahora puedes hacer, es compartir tus fotos con las otras personas
+    para que las puedan ver. Las fotos que están en este portal están
+    disponibles para todos. Es tu responsabilidad tener los derechos
+    intelectuales sobre las fotos que publiques, esto quiere decir, que tu
+    hayas tomado la foto. Aquí no queremo fotos de otras personas o
+    empresas, ya que no se tienen los derechos sobre estas.</p>
+  <p>Si la foto contiene más información, fuera de las coordenadas de
+    la foto, como la dirección/orientación (por ejemplo 43º nor-este)
+    hacia donde tomaste la foto, estas podrán ser de mayor provecho para
+    los servicios que aquí ofrecemos.</p>
+  <p>En el párrafo anterior nos referimos a servicios, y es que este
+    portal no solo se limita a mostrar las fotos que se han subido en un
+    mapa, sino que permite consultar fotos a partir de un punto dado. Esto
+    permite que las fotos sean consultadas desde otras aplicaciones, por
+    ejemplo desde una aplicación en Facebook, o un periódico digital, o
+    inclusive, desde una aplicación en tu teléfono celular. Las
+    posibilidades son infinitas, pero necesitas de todos para ayudar a
+    alimentar este portal.</p>
+  <p>Actualmente, este portal se encuentra hospedado en un viejo
+    computador en la casa de la persona que creó el proyecto, sin embargo,
+    buscamos que pueda tener una infraestructura más estable, y estamos
+    buscando apoyo.</p>
+  <p>
+    El portal está en construcción, y faltan muchas <a href="todo.html">cosas
+      por hacer</a>, pero si están interesado, y quieres apoyar, no dudes en <a
+      href="mailto:angoca@gmail.com">contactarnos</a>.
+  </p>
+  <h2>Detalles técnicos</h2>
+  <p>Primeramente, las fotos eran subidas por medio de phpMyGPX,
+    donde las fotos eran analizadas, y su encabezado EXIF era leído, para
+    extraer la información de coordenadas GPS, pero esta aplicación solo
+    permite un directorio para subir las fotos, un solo usuario que suba
+    fotos, y había problemas en la generación y visualización de
+    thumbails. Sin embargo, suplía las necesidades de ubicar las fotos en
+    un mapa OSM que es lo que se buscaba.</p>
+  <p>Entonces, para poder hacerlo multiusuario, multidirectorio, se
+    buscó otra aplicación que permita subir fotos vía web, la cual además
+    creaba los thumbail, y una foto de baja resolución, lo cual es
+    práctico si se usan fotos de 10 MegaPíxeles.</p>
+  <p>El problema que esto genera es que las fotos son independientes
+    en las dos aplicaciones, por lo que comencé a hacer scripts en bash
+    para crear links simbólicos, y poder hacer el procesamiento de las
+    mismas fotos en ambas aplicaciones, y solo tenerlas una sola en el
+    servidos web.</p>
+  <p>Durante esta labor encontré varios problemas con phpMyGPX y creé
+    un branch en github para mejorarlo y adaptarlo a lo que estaba
+    buscando. Es así como lo traduje al español, corregí lo de los
+    thumbails, extraje más información del encabezado EXIF, entre otros.</p>
+  <p>Ahora, toca definir unas cosas para que el procesamiento de las
+    fotos sea automático, y se sincronicen los dos sistemas. Es más, sin
+    tener que hacer dos procesamientos, sino que se modifique la base de
+    datos de phpMyGPX directamente con los valores que se encuentra en los
+    encabezados EXIF de las fotos.</p>
 </body>
 </html>
